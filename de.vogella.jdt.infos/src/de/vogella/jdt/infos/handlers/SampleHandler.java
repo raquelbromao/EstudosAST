@@ -3,11 +3,14 @@ package de.vogella.jdt.infos.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+
 import org.eclipse.core.runtime.CoreException;
+
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
@@ -16,6 +19,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+
 import org.eclipse.jface.text.Document;
 
 /**
@@ -108,6 +112,7 @@ public class SampleHandler extends AbstractHandler {
         private void printIMethodDetails(IType type) throws JavaModelException {
                 IMethod[] methods = type.getMethods();
                 for (IMethod method : methods) {
+                		//Imprime as informações dos métodos presentes no arquivo fonte java
                         System.out.println("Method name " + method.getElementName());
                         System.out.println("Signature " + method.getSignature());
                         System.out.println("Return Type " + method.getReturnType() + "\n");

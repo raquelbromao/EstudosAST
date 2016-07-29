@@ -79,6 +79,7 @@ public class GetInfo extends AbstractHandler {
                                                 + "\nReturn type: " + method.getReturnType2()
                                                 + "\nAnother GetClass information: " + method.getClass()
                                                 + "\nAnother2 ReceiverType Informarion: " +method.getReceiverType()
+                                                + "\nReturn body:" + method.getBody()
                                                 + "\n\n");
                         }
                 }

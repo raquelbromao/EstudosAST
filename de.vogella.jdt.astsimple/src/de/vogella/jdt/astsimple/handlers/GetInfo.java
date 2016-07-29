@@ -76,7 +76,10 @@ public class GetInfo extends AbstractHandler {
                         // Imprime na tela o nome do método e o tipo de retorno
                         for (MethodDeclaration method : visitor.getMethods()) {
                                 System.out.println("Method name: " + method.getName()
-                                                + " Return type: " + method.getReturnType2());
+                                                + "\nReturn type: " + method.getReturnType2()
+                                                + "\nAnother GetClass information: " + method.getClass()
+                                                + "\nAnother2 ReceiverType Informarion: " +method.getReceiverType()
+                                                + "\n\n");
                         }
                 }
         }

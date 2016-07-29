@@ -21,6 +21,17 @@ import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 
+/**
+ * 
+ * @author Romao
+ * @date 29/07/16
+ * @time 15:04
+ * 
+ * Pega as informações dos métodos do projeto principal aberto na workspace
+ * Pega o nome do método e o seu tipo de retorno
+ *
+ */
+
 public class GetInfo extends AbstractHandler {
 
         private static final String JDT_NATURE = "org.eclipse.jdt.core.javanature";
@@ -65,7 +76,7 @@ public class GetInfo extends AbstractHandler {
                         // Imprime na tela o nome do método e o tipo de retorno
                         for (MethodDeclaration method : visitor.getMethods()) {
                                 System.out.println("Method name: " + method.getName()
-                                                + " Return type: " + method.getReturnType2() + "\n\n");
+                                                + " Return type: " + method.getReturnType2());
                         }
                 }
         }

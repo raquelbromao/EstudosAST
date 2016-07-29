@@ -27,7 +27,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
  * @date 29/07/16
  * @time 15:04
  * 
- * Pega as informações dos métodos do projeto principal aberto na workspace
+ * Pega as informações dos métodos de TODAS as classes do projeto principal aberto na workspace
  * Pega o nome do método e o seu tipo de retorno
  *
  */

@@ -55,7 +55,7 @@
             commandId="de.vogella.jdt.astsimple.command1"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1 + 1">
+            sequence="M1+1">
       </key>
    </extension>
    <extension

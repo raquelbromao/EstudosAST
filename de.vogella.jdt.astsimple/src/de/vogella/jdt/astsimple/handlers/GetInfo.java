@@ -29,9 +29,9 @@ public class GetInfo extends AbstractHandler {
         public Object execute(ExecutionEvent event) throws ExecutionException {
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 IWorkspaceRoot root = workspace.getRoot();
-                // Get all projects in the workspace
+                // Pega todos os projetos na workspace
                 IProject[] projects = root.getProjects();
-                // Loop over all projects
+                // Faz um loop sobre todos os projetos
                 for (IProject project : projects) {
                         try {
                                 if (project.isNatureEnabled(JDT_NATURE)) {
@@ -61,12 +61,11 @@ public class GetInfo extends AbstractHandler {
                         // now create the AST for the ICompilationUnits
                         CompilationUnit parse = parse(unit);
                         MethodVisitor visitor = new MethodVisitor();
-                        parse.accept(visitor);
-                        
+                        parse.accept(visitor);                        
                         // Imprime na tela o nome do método e o tipo de retorno
                         for (MethodDeclaration method : visitor.getMethods()) {
-                                System.out.print("Method name: " + method.getName()
-                                                + " Return type: " + method.getReturnType2() + "\n");
+                                System.out.println("Method name: " + method.getName()
+                                                + " Return type: " + method.getReturnType2() + "\n\n");
                         }
                 }
         }

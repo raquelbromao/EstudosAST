@@ -34,12 +34,12 @@ import org.eclipse.jface.text.Document;
 public class SampleHandler extends AbstractHandler {
 
         public Object execute(ExecutionEvent event) throws ExecutionException {
-                // Get the root of the workspace
+                // Pega a raiz da workspace
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 IWorkspaceRoot root = workspace.getRoot();
-                // Get all projects in the workspace
+                // Pega todos os projetos da workspace
                 IProject[] projects = root.getProjects();
-                // Loop over all projects
+                // Faz um loop sobre todos os projetos
                 for (IProject project : projects) {
                         try {
 							printProjectInfo(project);
@@ -56,8 +56,9 @@ public class SampleHandler extends AbstractHandler {
 
         private void printProjectInfo(IProject project) throws CoreException,
                         JavaModelException {
+        		// Imprime o nome dos projetos
                 System.out.println("Working in project " + project.getName());
-                // check if we have a Java project
+                // Checa se há um projeto Java
                 IJavaProject javaProject = JavaCore.create(project);
                 printPackageInfos(javaProject);
         }
@@ -73,6 +74,7 @@ public class SampleHandler extends AbstractHandler {
                         // K_BINARY would include also included JARS, e.g.
                         // rt.jar
                         if (mypackage.getKind() == IPackageFragmentRoot.K_SOURCE) {
+                        		// Imprime nome do pacote
                                 System.out.println("Package " + mypackage.getElementName());
                                 printICompilationUnitInfo(mypackage);
                         }
@@ -86,19 +88,21 @@ public class SampleHandler extends AbstractHandler {
                 }
         }
 
-        private void printIMethods(ICompilationUnit unit) throws JavaModelException {
-                IType[] allTypes = unit.getAllTypes();
-                for (IType type : allTypes) {
-                        printIMethodDetails(type);
-                }
-        }
-
         private void printCompilationUnitDetails(ICompilationUnit unit)
                         throws JavaModelException {
+        		// Imprime nome do arquivo fonte java
                 System.out.println("Source file " + unit.getElementName());
                 Document doc = new Document(unit.getSource());
-                System.out.println("Has number of lines: " + doc.getNumberOfLines());
+                // Imprime o número de linhas do documento java
+                System.out.println("Has number of lines: " + doc.getNumberOfLines() + "\n");
                 printIMethods(unit);
+        }
+        
+        private void printIMethods(ICompilationUnit unit) throws JavaModelException {
+            IType[] allTypes = unit.getAllTypes();
+            for (IType type : allTypes) {
+                    printIMethodDetails(type);
+            }
         }
 
         private void printIMethodDetails(IType type) throws JavaModelException {
@@ -106,7 +110,7 @@ public class SampleHandler extends AbstractHandler {
                 for (IMethod method : methods) {
                         System.out.println("Method name " + method.getElementName());
                         System.out.println("Signature " + method.getSignature());
-                        System.out.println("Return Type " + method.getReturnType());
+                        System.out.println("Return Type " + method.getReturnType() + "\n");
                 }
         }
 }

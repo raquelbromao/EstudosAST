@@ -15,6 +15,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
@@ -79,13 +80,15 @@ public class GetInfo extends AbstractHandler {
 		// parse(JavaCore.create(project));
 		for (IPackageFragment mypackage : packages) {
 			if (mypackage.getKind() == IPackageFragmentRoot.K_SOURCE) {
-				createASTmethod(mypackage);
+				//System.out.println("####### INFORMAÇÕES DO METHOD DECLARATION DO PROJETO " + mypackage.getElementName());
+				//createASTmethod(mypackage);
+				System.out.println("####### INFORMAÇÕES DO METHOD INVOCATION DO PROJETO " + mypackage.getElementName());
 				createASTInvocation(mypackage);
 			}
 		}
 	}
 
-	private void createASTmethod(IPackageFragment mypackage) throws JavaModelException {
+	/*private void createASTmethod(IPackageFragment mypackage) throws JavaModelException {
 		for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
 			// now create the AST for the ICompilationUnits
 			CompilationUnit parse = parse(unit);
@@ -94,14 +97,15 @@ public class GetInfo extends AbstractHandler {
 			
 			// Imprime na tela o nome do método e o tipo de retorno
 			for (MethodDeclaration method : visitor.getMethods()) {
-				System.out.println("####### Informações do METHOD DECLARATION ######");
+				System.out.println("\n####### Informações do METHOD DECLARATION ######");	
+				//System.out.println("Class name:" + method.getParent().getClass().getName());
+				//System.out.println("Node Type of Parent Node:" + method.getParent().getNodeType());
 				System.out.println("Method name: " + method.getName());
 				System.out.println("Return type: " + method.getReturnType2());
 				System.out.println("Return body: "+ method.getBody());
 			}
-
 		}
-	}
+	}*/
 
 	private void createASTInvocation(IPackageFragment mypackage) throws JavaModelException {
 		for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
@@ -112,11 +116,11 @@ public class GetInfo extends AbstractHandler {
 			
 			// Imprime na tela o nome do método e o tipo de retorno
 			for (MethodInvocation method : visitor.getMethods()) {	
-				System.out.println("####### Informações do METHOD INVOCATION ######");
+				System.out.println("\n####### Informações do METHOD INVOCATION ######");
 				System.out.println("Name: " + method.getName());
 				System.out.println("Parent: " + method.getParent());
-				System.out.println("Class: " + method.getClass());
-				System.out.println("Expression: "+ method.getExpression());
+				//System.out.println("Class: " + method.getClass());
+				//System.out.println("Resolve Method Binding: "+ method.resolveMethodBinding());
 			}
 		}
 	}

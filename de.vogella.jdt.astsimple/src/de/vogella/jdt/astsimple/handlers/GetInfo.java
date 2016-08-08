@@ -129,7 +129,8 @@ public class GetInfo extends AbstractHandler {
 				this.names.add(name.getIdentifier());
 				System.out.println("    Declaration of '" + name.getFullyQualifiedName() + "' at line"
 						+ cu.getLineNumber(name.getStartPosition()));
-
+				
+				
 				methodsDec.add(node);
 
 				/*

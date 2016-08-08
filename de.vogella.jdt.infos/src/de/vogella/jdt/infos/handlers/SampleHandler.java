@@ -36,16 +36,22 @@ import org.eclipse.jface.text.Document;
  */
 
 public class SampleHandler extends AbstractHandler {
-
+		
+		//////////////////
+		//////EXECUTE////
+		/////////////////
         public Object execute(ExecutionEvent event) throws ExecutionException {
                 // Pega a raiz da workspace
                 IWorkspace workspace = ResourcesPlugin.getWorkspace();
                 IWorkspaceRoot root = workspace.getRoot();
+                
                 // Pega todos os projetos da workspace
                 IProject[] projects = root.getProjects();
-                // Faz um loop sobre todos os projetos
+                
+                // Faz um loop sobre todos os projetos e chama o método printProjectInfo p/ cada projeto
                 for (IProject project : projects) {
                         try {
+                        	// Chamada do método em cada projeto da workspace
 							printProjectInfo(project);
 						} catch (JavaModelException e) {
 							// TODO Auto-generated catch block
@@ -58,17 +64,22 @@ public class SampleHandler extends AbstractHandler {
                 return null;
         }
 
-        private void printProjectInfo(IProject project) throws CoreException,
-                        JavaModelException {
+		////////////////////////////
+		//////PRINT PROJECT INFO////
+		////////////////////////////
+        private void printProjectInfo(IProject project) throws CoreException, JavaModelException {
         		// Imprime o nome dos projetos
                 System.out.println("Working in project " + project.getName());
+                
                 // Checa se há um projeto Java
                 IJavaProject javaProject = JavaCore.create(project);
                 printPackageInfos(javaProject);
         }
 
-        private void printPackageInfos(IJavaProject javaProject)
-                        throws JavaModelException {
+		////////////////////////////
+		//////PRINT PACKAGE INFO////
+		////////////////////////////
+        private void printPackageInfos(IJavaProject javaProject) throws JavaModelException {
                 IPackageFragment[] packages = javaProject.getPackageFragments();
                 for (IPackageFragment mypackage : packages) {
                         // Package fragments include all packages in the
@@ -85,15 +96,16 @@ public class SampleHandler extends AbstractHandler {
                 }
         }
 
-        private void printICompilationUnitInfo(IPackageFragment mypackage)
-                        throws JavaModelException {
+		/////////////////////////////////////
+		//////PRINT COMPILATION UNIT INFO////
+		/////////////////////////////////////
+        private void printICompilationUnitInfo(IPackageFragment mypackage) throws JavaModelException {
                 for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
                         printCompilationUnitDetails(unit);
                 }
         }
 
-        private void printCompilationUnitDetails(ICompilationUnit unit)
-                        throws JavaModelException {
+        private void printCompilationUnitDetails(ICompilationUnit unit) throws JavaModelException {
         		// Imprime nome do arquivo fonte java
                 System.out.println("Source file " + unit.getElementName());
                 Document doc = new Document(unit.getSource());
@@ -102,6 +114,9 @@ public class SampleHandler extends AbstractHandler {
                 printIMethods(unit);
         }
         
+		////////////////////////////
+		//////PRINT METHODS INFO////
+		////////////////////////////
         private void printIMethods(ICompilationUnit unit) throws JavaModelException {
             IType[] allTypes = unit.getAllTypes();
             for (IType type : allTypes) {

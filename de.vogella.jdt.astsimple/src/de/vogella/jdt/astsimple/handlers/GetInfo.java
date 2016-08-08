@@ -116,9 +116,11 @@ public class GetInfo extends AbstractHandler {
 			
 			// Imprime na tela o nome do método e o tipo de retorno
 			for (MethodInvocation method : visitor.getMethods()) {	
-				System.out.println("\n####### Informações do METHOD INVOCATION ######");
-				System.out.println("Name: " + method.getName());
-				System.out.println("Parent: " + method.getParent());
+				System.out.println("\n####### Informações do METHOD INVOCATION " + method.getName() +  " ######");
+				//System.out.println("NAME: " + method.getName());			
+				System.out.println("PARENT: " + method.getParent());
+				System.out.println("ARGUMENTS: " + method.arguments());
+				//System.out.println("Class: " + method.getClass());
 				//System.out.println("Class: " + method.getClass());
 				//System.out.println("Resolve Method Binding: "+ method.resolveMethodBinding());
 			}

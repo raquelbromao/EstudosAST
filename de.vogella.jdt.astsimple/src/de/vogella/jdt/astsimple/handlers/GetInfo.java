@@ -28,6 +28,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SimpleName;
+import org.eclipse.jdt.core.dom.StructuralPropertyDescriptor;
 import org.eclipse.jdt.internal.compiler.ast.Block;
 
 /**
@@ -45,6 +46,7 @@ import org.eclipse.jdt.internal.compiler.ast.Block;
 public class GetInfo extends AbstractHandler {
 
 	private static final String JDT_NATURE = "org.eclipse.jdt.core.javanature";
+	private StructuralPropertyDescriptor property;
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -92,11 +94,10 @@ public class GetInfo extends AbstractHandler {
 			
 			// Imprime na tela o nome do método e o tipo de retorno
 			for (MethodDeclaration method : visitor.getMethods()) {
+				System.out.println("####### Informações do METHOD DECLARATION ######");
 				System.out.println("Method name: " + method.getName());
 				System.out.println("Return type: " + method.getReturnType2());
-				System.out.println("Another GetClass information: " + method.getClass());
-				System.out.println("Another2 ReceiverType Informarion: " + method.getReceiverType());
-				System.out.println("Return body: "+ method.getBody() + "\n\n");
+				System.out.println("Return body: "+ method.getBody());
 			}
 
 		}
@@ -106,16 +107,16 @@ public class GetInfo extends AbstractHandler {
 		for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
 			// now create the AST for the ICompilationUnits
 			CompilationUnit parse = parse(unit);
-			MethodVisitor visitor = new MethodVisitor();
+			MethodInvoke visitor = new MethodInvoke();
 			parse.accept(visitor);			
 			
 			// Imprime na tela o nome do método e o tipo de retorno
-			for (MethodInvocation method : visitor.getMethods()) {				
-				System.out.println("Method name: " + method.getName());
-				System.out.println("Return type: " + method.getReturnType2());
-				System.out.println("Another GetClass information: " + method.getClass());
-				System.out.println("Another2 ReceiverType Informarion: " + method.getReceiverType());
-				System.out.println("Return body: "+ method.getBody() + "\n\n");
+			for (MethodInvocation method : visitor.getMethods()) {	
+				System.out.println("####### Informações do METHOD INVOCATION ######");
+				System.out.println("Name: " + method.getName());
+				System.out.println("Parent: " + method.getParent());
+				System.out.println("Class: " + method.getClass());
+				System.out.println("Expression: "+ method.getExpression());
 			}
 		}
 	}

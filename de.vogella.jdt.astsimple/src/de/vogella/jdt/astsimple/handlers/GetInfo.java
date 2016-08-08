@@ -78,7 +78,7 @@ public class GetInfo extends AbstractHandler {
 		for (IPackageFragment mypackage : packages) {
 			if (mypackage.getKind() == IPackageFragmentRoot.K_SOURCE) {
 				createASTmethod(mypackage);
-				//createASTinvocation(mypackage);
+				createASTInvocation(mypackage);
 			}
 		}
 	}
@@ -88,19 +88,38 @@ public class GetInfo extends AbstractHandler {
 			// now create the AST for the ICompilationUnits
 			CompilationUnit parse = parse(unit);
 			MethodVisitor visitor = new MethodVisitor();
-			parse.accept(visitor);
+			parse.accept(visitor);			
+			
 			// Imprime na tela o nome do método e o tipo de retorno
 			for (MethodDeclaration method : visitor.getMethods()) {
-				System.out.println("Method name: " + method.getName() 
-						+ "\nReturn type: " + method.getReturnType2()
-						+ "\nAnother GetClass information: " + method.getClass()
-						+ "\nAnother2 ReceiverType Informarion: " + method.getReceiverType() 
-						+ "\nReturn body:" + method.getBody() + "\n\n");
+				System.out.println("Method name: " + method.getName());
+				System.out.println("Return type: " + method.getReturnType2());
+				System.out.println("Another GetClass information: " + method.getClass());
+				System.out.println("Another2 ReceiverType Informarion: " + method.getReceiverType());
+				System.out.println("Return body: "+ method.getBody() + "\n\n");
 			}
 
+		}
+	}
+
+	private void createASTInvocation(IPackageFragment mypackage) throws JavaModelException {
+		for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
+			// now create the AST for the ICompilationUnits
+			CompilationUnit parse = parse(unit);
+			MethodVisitor visitor = new MethodVisitor();
+			parse.accept(visitor);			
 			
+			// Imprime na tela o nome do método e o tipo de retorno
+			for (MethodInvocation method : visitor.getMethods()) {				
+				System.out.println("Method name: " + method.getName());
+				System.out.println("Return type: " + method.getReturnType2());
+				System.out.println("Another GetClass information: " + method.getClass());
+				System.out.println("Another2 ReceiverType Informarion: " + method.getReceiverType());
+				System.out.println("Return body: "+ method.getBody() + "\n\n");
 			}
 		}
+	}
+	 
 
 	/**
 	 * Reads a ICompilationUnit and creates the AST DOM for manipulating the

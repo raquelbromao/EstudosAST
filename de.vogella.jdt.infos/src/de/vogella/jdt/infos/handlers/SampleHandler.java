@@ -19,10 +19,6 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.core.dom.AST;
-import org.eclipse.jdt.core.dom.ASTParser;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jface.text.Document;
 
 /**
@@ -74,7 +70,7 @@ public class SampleHandler extends AbstractHandler {
 	////////////////////////////
 	private void printProjectInfo(IProject project) throws CoreException, JavaModelException {
 		// Imprime o nome dos projetos
-		System.out.println("Working in project " + project.getName() + "\n");
+		System.out.println("Project Name: " + project.getName() + "\n");
 
 		// Checa se há um projeto Java
 		IJavaProject javaProject = JavaCore.create(project);
@@ -92,12 +88,12 @@ public class SampleHandler extends AbstractHandler {
 			// K_BINARY would include also included JARS, e.g. rt.jar
 			if (mypackage.getKind() == IPackageFragmentRoot.K_SOURCE) {
 				// Imprime nome do pacote
-				System.out.println("Package " + mypackage.getElementName() + "\n");
+				System.out.println("Package Name: " + mypackage.getElementName());
 				printICompilationUnitInfo(mypackage);
-				createASTmethod(mypackage);
 			}
 		}
 	}
+
 
 	/////////////////////////////////////
 	////// PRINT COMPILATION UNIT INFO////
@@ -110,10 +106,11 @@ public class SampleHandler extends AbstractHandler {
 
 	private void printCompilationUnitDetails(ICompilationUnit unit) throws JavaModelException {
 		// Imprime nome do arquivo fonte java
-		System.out.println("Source file " + unit.getElementName());
+		System.out.println("\nSource File Name: " + unit.getElementName());
 		Document doc = new Document(unit.getSource());
 		// Imprime o número de linhas do documento java
-		System.out.println("Has number of lines: " + doc.getNumberOfLines());
+		System.out.println("Unit Name: " + unit.getElementName());
+		System.out.println("Number of lines: " + doc.getNumberOfLines());
 		printIMethods(unit);
 	}
 
@@ -135,39 +132,6 @@ public class SampleHandler extends AbstractHandler {
 			System.out.println("\nMethod name " + method.getElementName());
 			System.out.println("Signature " + method.getSignature());
 			System.out.println("Return Type " + method.getReturnType());
-		}
-	}
-	
-	/**
-	 * Reads a ICompilationUnit and creates the AST DOM for manipulating the
-	 * Java source file
-	 *
-	 * @param unit
-	 * @return
-	 */
-
-	private static CompilationUnit parse(ICompilationUnit unit) {
-		ASTParser parser = ASTParser.newParser(AST.JLS8);
-		parser.setKind(ASTParser.K_COMPILATION_UNIT);
-		parser.setSource(unit);
-		parser.setResolveBindings(true);
-		return (CompilationUnit) parser.createAST(null); // parse
-	}
-
-	private void createASTmethod(IPackageFragment mypackage) throws JavaModelException {
-		for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
-			// now create the AST for the ICompilationUnits
-			CompilationUnit parse = parse(unit);
-			MethodVisitor visitor = new MethodVisitor();
-			parse.accept(visitor);
-			// Imprime na tela o nome do método e o tipo de retorno
-			for (MethodDeclaration method : visitor.getMethods()) {
-				System.out.println("Method name: " + method.getName() + "\nReturn type: " + method.getReturnType2()
-						+ "\nAnother GetClass information: " + method.getClass()
-						+ "\nAnother2 ReceiverType Informarion: " + method.getReceiverType() + "\nReturn body:"
-						+ method.getBody() + "\n\n");
-			}
-
 		}
 	}
 }

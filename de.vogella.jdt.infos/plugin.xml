@@ -18,7 +18,7 @@
             id="de.vogella.jdt.infos.commands.category">
       </category>
       <command
-            name="Sample Command"
+            name="Method"
             categoryId="de.vogella.jdt.infos.commands.category"
             id="de.vogella.jdt.infos.commands.sampleCommand">
       </command>

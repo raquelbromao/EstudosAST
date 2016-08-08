@@ -2,14 +2,14 @@ package de.vogella.jdt.astsimple.handlers;
 
 import java.util.ArrayList;
 
-public class MethodDec {
+public class MethodInvocation {
 	private String name;
 	private String classOrg;
 	
-	private ArrayList<MethodDec> methodsInvocates;
+	private ArrayList<MethodInvocation> methodsInvocates;
 	
-	public MethodDec() {
-		this.methodsInvocates = new ArrayList<MethodDec>();
+	public MethodInvocation() {
+		this.methodsInvocates = new ArrayList<MethodInvocation>();
 	}
 	
 	public String getName() {
@@ -24,10 +24,10 @@ public class MethodDec {
 	public void setClassOrg(String classOrg) {
 		this.classOrg = classOrg;
 	}
-	public ArrayList<MethodDec> getMethodsInvocates() {
+	public ArrayList<MethodInvocation> getMethodsInvocates() {
 		return methodsInvocates;
 	}
-	public void setMethodsInvocates(MethodDec methodsInvocates) {
+	public void setMethodsInvocates(MethodInvocation methodsInvocates) {
 		this.methodsInvocates.add(methodsInvocates);
 	}
 

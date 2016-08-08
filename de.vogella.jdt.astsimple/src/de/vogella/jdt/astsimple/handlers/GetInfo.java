@@ -78,6 +78,7 @@ public class GetInfo extends AbstractHandler {
 		for (IPackageFragment mypackage : packages) {
 			if (mypackage.getKind() == IPackageFragmentRoot.K_SOURCE) {
 				createASTmethod(mypackage);
+				//createASTinvocation(mypackage);
 			}
 		}
 	}

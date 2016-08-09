@@ -6,26 +6,36 @@ public class acaoPrincipal {
 	public static void main(String[] args) {
 		// Variáveis globais
 		Scanner ler = new Scanner(System.in);
-		String messagechain;
-		int resposta;
-		boolean continua;
+		String messagechain = null;
+		int resposta = 4;
+		boolean continua = true;
+		
+		// criação de pattern para auxiliar na validação do message chain
+		//Pattern mc = 
 
 		// a().b().c().d().f()
 
-		do {
+		while (continua) {
 			// Pede o Message Chain
-			System.out.printf("Informe o Message Chain:\n");
+			System.out.println("Informe o Message Chain:\n");
 			messagechain = ler.nextLine();
-
+			
+			if (messagechain.isEmpty() == true) {
+				System.out.println("\nMessage Chain vazio! Não é válido!");
+				//TERMINA PROGRAMA
+				//return; ????????
+			}
+			
 			// Mostra o Message Chain na tela e dá seu tamanho
 			System.out.println("\nMessage Chain: " + messagechain);
 			System.out.println("Tamanho: " + messagechain.length());
 
-			// QUEBRA DA STRING E RECONHECER QUE É UM MESSAGE CHAIN
+			// QUEBRA DA STRING E VALIDAÇÃO DE MESSAGE CHAIN
 			if (messagechain.contains(".") == true) {
 				System.out.println("\nÉ Message Chain!");
 
-				// Quebra a variável quando acha . e armazena no array aux
+				// Quebra a variável quando acha . e armazena a sobra numa posição do array aux
+				// a().b() -> . é descartando e a() fica em aux[0] e b() em aux[1]
 				String[] aux = messagechain.split(Pattern.quote("."));
 
 				// Pega o tamanho da string aux
@@ -36,6 +46,7 @@ public class acaoPrincipal {
 
 			} else {
 				System.out.println("\nNão é Message Chain!");
+				//TERMINA PROGRAMA
 			}
 
 			// Pergunta se quer continuar testando
@@ -43,15 +54,15 @@ public class acaoPrincipal {
 			resposta = ler.nextInt();
 			
 			if (resposta == 1) {
-				System.out.println("Teste finalizado!\n");
+				//TERMINA PROGRAMA
+				System.out.println("\nTESTE FINALIZADO!");
 				continua = false;
 			} else {
-				continua = true;
+				System.out.println("\n--------------------------------------------\n");
 			}
 
 			// Reinicializa a variável para evitar erros
 			messagechain = null;
-
-		} while (continua);
+		} 
 	}
 }

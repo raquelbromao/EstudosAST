@@ -82,7 +82,9 @@ public class GetInfo extends AbstractHandler {
 			if (mypackage.getKind() == IPackageFragmentRoot.K_SOURCE) {
 				//System.out.println("####### INFORMAÇÕES DO METHOD DECLARATION DO PROJETO " + mypackage.getElementName());
 				//createASTmethod(mypackage);
-				System.out.println("####### INFORMAÇÕES DO METHOD INVOCATION DO PROJETO " + mypackage.getElementName());
+				if (mypackage.getElementName() != null) {
+					System.out.println("####### INFORMAÇÕES DO METHOD INVOCATION DO PROJETO " + mypackage.getElementName() + " ########");
+				}
 				createASTInvocation(mypackage);
 			}
 		}
@@ -112,10 +114,10 @@ public class GetInfo extends AbstractHandler {
 			// now create the AST for the ICompilationUnits
 			CompilationUnit parse = parse(unit);
 			MethodInvoke visitor = new MethodInvoke();
-			parse.accept(visitor);			
+			parse.accept(visitor);						
 			
 			// Imprime na tela o nome do método e o tipo de retorno
-			for (MethodInvocation method : visitor.getMethods()) {	
+			for (MethodInvocation method : visitor.getMethods()) {					
 				System.out.println("\n####### Informações do METHOD INVOCATION " + method.getName() +  " ######");
 				//System.out.println("NAME: " + method.getName());			
 				System.out.println("PARENT: " + method.getParent());
@@ -123,7 +125,8 @@ public class GetInfo extends AbstractHandler {
 				//System.out.println("Class: " + method.getClass());
 				//System.out.println("Class: " + method.getClass());
 				//System.out.println("Resolve Method Binding: "+ method.resolveMethodBinding());
-			}
+			}			
+			//visitor.ArrayMetInvoc();
 		}
 	}
 	 

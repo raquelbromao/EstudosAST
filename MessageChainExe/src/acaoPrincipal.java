@@ -50,9 +50,9 @@ public class acaoPrincipal {
 		Scanner ler = new Scanner(System.in);
 		String messagechain = null;
 		int resposta = 4;
-		boolean continua = true;
+		//boolean continua = true;
 
-		while (continua) {
+		//while (continua) {
 			// Pede o Message Chain
 			System.out.println("Informe o Message Chain:\n");
 			messagechain = ler.nextLine();
@@ -77,13 +77,13 @@ public class acaoPrincipal {
 			if (resposta == 1) {
 				//TERMINA PROGRAMA
 				System.out.println("\nTESTE FINALIZADO!");
-				continua = false;
+				//continua = false;
 				ler.close();
 			} else {
 				// Reinicializa a variável para evitar erros
 				messagechain = null;
 				System.out.println("\n--------------------------------------------\n");
 			}
-		}
+		//}
 	}
 }

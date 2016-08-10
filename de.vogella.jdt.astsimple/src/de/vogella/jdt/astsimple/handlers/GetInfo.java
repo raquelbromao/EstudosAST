@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.eclipse.jdt.core.dom.StructuralPropertyDescriptor;
+//import org.eclipse.jdt.core.dom.StructuralPropertyDescriptor;
 
 /**
  * 
@@ -52,10 +52,10 @@ public class GetInfo extends AbstractHandler {
 	
 	public static void verificaMessageChain (String s) {		
 		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}")) {
-			System.out.println("\n… Message Chain para "+s+"\n");
+			System.out.println("\n… Message Chain: "+s+"\n");
 			splitMessageChain(s);
 		} else {
-			System.out.println("\nN„o È Message Chain para "+s+"\n");	
+			System.out.println("\nN„o È Message Chain: "+s+"\n");	
 		}
 	}
 	
@@ -66,7 +66,7 @@ public class GetInfo extends AbstractHandler {
 	}
 
 	private static final String JDT_NATURE = "org.eclipse.jdt.core.javanature";
-	private StructuralPropertyDescriptor property;
+	//private StructuralPropertyDescriptor property;
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {

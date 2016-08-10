@@ -78,6 +78,7 @@ public class acaoPrincipal {
 				//TERMINA PROGRAMA
 				System.out.println("\nTESTE FINALIZADO!");
 				continua = false;
+				ler.close();
 			} else {
 				// Reinicializa a variável para evitar erros
 				messagechain = null;

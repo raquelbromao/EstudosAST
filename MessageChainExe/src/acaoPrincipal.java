@@ -6,16 +6,32 @@ public class acaoPrincipal {
 	public static final String[] testeErro = {"objeto", ".objeto", "objeto.", "objeto.function",
 			"objeto()", ".objeto()", "objeto.()", "objeto().",
 			"objeto().function", "objeto.()function","()objeto.function",
-			"objeto.function()","objeto.function()."};
+			"objeto.function()","objeto.function().", 
+			"objeto.function().function2", "objeto.function().function2."};
 	
-	public static final String[] testeValido = {"objeto.function().function2()", "objeto.function().function2().function3()",
-			"objeto.function().function2().function3().function4()"};
+	public static final String[] testeValido = {"objeto.function().function2()",
+			"objeto.function().function2().function3()",
+			"objeto.function().function2().function3().function4()", 
+			"objeto.function().function2().function3().function4().function5()"};
 	
-	public static void verificaMessageChain (String s) {
+	public static void splitMessageChain (String s) {
+		// Quebra a variável quando acha . e armazena a sobra numa posição do array aux
+		// a().b() -> . é descartando e a() fica em aux[0] e b() em aux[1]
+		String[] aux = s.split(Pattern.quote("."));
+
+		// Pega o tamanho da string aux
+		// Imprime a variável aux na tela
+		for (int i = 0; i < aux.length; i++) {
+			System.out.println("String[" + i + "]: " + aux[i]);
+		}		
+	}
+	
+	public static void verificaMessageChain (String s) {		
 		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}")) {
-			System.out.println("\nÉ Message Chain para "+s);
+			System.out.println("\nÉ Message Chain para "+s+"\n");
+			splitMessageChain(s);
 		} else {
-			System.out.println("\nNão é Message Chain para "+s);			
+			System.out.println("\nNão é Message Chain para "+s+"\n");	
 		}
 	}
 	
@@ -26,23 +42,17 @@ public class acaoPrincipal {
 	}
 
 	public static void main(String[] args) {
-		testaStrings(testeErro);
+		/*testaStrings(testeErro);		
+		System.out.println("\n#####################################################\n");		
+		testaStrings(testeValido);*/
 		
-		System.out.println("\n#####################################################\n");
-		
-		testaStrings(testeValido);
-		
-		/*// Variáveis globais
+		// Variáveis globais
 		Scanner ler = new Scanner(System.in);
 		String messagechain = null;
 		int resposta = 4;
 		boolean continua = true;
 
 		while (continua) {
-			// AUTOMATIZA TESTES
-			
-			
-			
 			// Pede o Message Chain
 			System.out.println("Informe o Message Chain:\n");
 			messagechain = ler.nextLine();
@@ -57,27 +67,9 @@ public class acaoPrincipal {
 			System.out.println("\nString: " + messagechain);
 			System.out.println("Tamanho: " + messagechain.length());
 
-			// QUEBRA DA STRING E VALIDAÇÃO DE MESSAGE CHAIN
-			//verificaMessageChain(messagechain);
+			// VALIDAÇÃO DE MESSAGE CHAIN E QUEBRA DELE EM PARTES CASO SEJA
+			verificaMessageChain(messagechain);
 			
-			if (messagechain.contains(".") == true) {
-				System.out.println("\nÉ Message Chain!");
-
-				// Quebra a variável quando acha . e armazena a sobra numa posição do array aux
-				// a().b() -> . é descartando e a() fica em aux[0] e b() em aux[1]
-				String[] aux = messagechain.split(Pattern.quote("."));
-
-				// Pega o tamanho da string aux
-				// Imprime a variável aux na tela
-				for (int i = 0; i < aux.length; i++) {
-					System.out.println("String[" + i + "] :" + aux[i]);
-				}
-
-			} else {
-				System.out.println("\nNão é Message Chain!");
-				//TERMINA PROGRAMA
-			}
-
 			// Pergunta se quer continuar testando
 			System.out.println("\nOutro teste? 0 SIM // 1 NÃO");
 			resposta = ler.nextInt();
@@ -92,6 +84,6 @@ public class acaoPrincipal {
 
 			// Reinicializa a variável para evitar erros
 			messagechain = null;
-		}*/ 
+		}
 	}
 }

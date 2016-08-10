@@ -1,5 +1,7 @@
 package de.vogella.jdt.astsimple.handlers;
 
+import java.util.regex.Pattern;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -35,6 +37,33 @@ import org.eclipse.jdt.core.dom.StructuralPropertyDescriptor;
  */
 
 public class GetInfo extends AbstractHandler {
+	
+	public static void splitMessageChain (String s) {
+		// Quebra a variável quando acha . e armazena a sobra numa posição do array aux
+		// a().b() -> . é descartando e a() fica em aux[0] e b() em aux[1]
+		String[] aux = s.split(Pattern.quote("."));
+
+		// Pega o tamanho da string aux
+		// Imprime a variável aux na tela
+		for (int i = 0; i < aux.length; i++) {
+			System.out.println("String[" + i + "]: " + aux[i]);
+		}		
+	}
+	
+	public static void verificaMessageChain (String s) {		
+		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}")) {
+			System.out.println("\nÉ Message Chain para "+s+"\n");
+			splitMessageChain(s);
+		} else {
+			System.out.println("\nNão é Message Chain para "+s+"\n");	
+		}
+	}
+	
+	public static void testaStrings (String[] s) {
+		for (int i = 0; i<s.length; i++) {
+			verificaMessageChain(s[i]);
+		}
+	}
 
 	private static final String JDT_NATURE = "org.eclipse.jdt.core.javanature";
 	private StructuralPropertyDescriptor property;
@@ -113,10 +142,8 @@ public class GetInfo extends AbstractHandler {
 				System.out.println("PARENT: " + method.getParent());
 				System.out.println("ARGUMENTS: " + method.arguments());
 				//System.out.println("Class: " + method.getClass());
-				//System.out.println("Class: " + method.getClass());
-				//System.out.println("Resolve Method Binding: "+ method.resolveMethodBinding());
+				//verificaMessageChain(method);
 			}			
-			//visitor.ArrayMetInvoc();
 		}
 	}
 	 

@@ -3,11 +3,20 @@ import java.util.regex.Pattern;
 
 public class acaoPrincipal {
 	
+	// objeto.a().b().c().d().f()
+	// objeto.a
+	// objeto().a()
+	// objeto().
+	// objeto()
+	// objeto.
+	// objeto
+	
+	
 	public static void verificaMessageChain (String s) {
-		if (s.matches("\\w+(\\.[a-zA-Z])+")) {
-			System.out.println("É Message Chain!");
+		if (s.matches("[\\w][\\.][\\w][()]")) {
+			System.out.println("É Message Chain para "+s);
 		} else {
-			System.out.println("Não é Message Chain!");			
+			System.out.println("Não é Message Chain para "+s);			
 		}
 	}
 
@@ -17,11 +26,6 @@ public class acaoPrincipal {
 		String messagechain = null;
 		int resposta = 4;
 		boolean continua = true;
-		
-		// criação de pattern para auxiliar na validação do message chain
-		//Pattern mc = 
-
-		// amor.a().b().c().d().f()
 
 		while (continua) {
 			// Pede o Message Chain
@@ -40,6 +44,7 @@ public class acaoPrincipal {
 
 			// QUEBRA DA STRING E VALIDAÇÃO DE MESSAGE CHAIN
 			verificaMessageChain(messagechain);
+			
 			/*if (messagechain.contains(".") == true) {
 				System.out.println("\nÉ Message Chain!");
 

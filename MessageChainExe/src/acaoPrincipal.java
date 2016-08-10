@@ -79,11 +79,10 @@ public class acaoPrincipal {
 				System.out.println("\nTESTE FINALIZADO!");
 				continua = false;
 			} else {
+				// Reinicializa a variável para evitar erros
+				messagechain = null;
 				System.out.println("\n--------------------------------------------\n");
 			}
-
-			// Reinicializa a variável para evitar erros
-			messagechain = null;
 		}
 	}
 }

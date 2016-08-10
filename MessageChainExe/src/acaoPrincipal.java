@@ -8,10 +8,11 @@ public class acaoPrincipal {
 			"objeto().function", "objeto.()function","()objeto.function",
 			"objeto.function()","objeto.function()."};
 	
-	public static final String[] testeValido = {"objeto.function().function2()", "objeto.function().function2().function3()"};
+	public static final String[] testeValido = {"objeto.function().function2()", "objeto.function().function2().function3()",
+			"objeto.function().function2().function3().function4()"};
 	
 	public static void verificaMessageChain (String s) {
-		if (s!=null && s.matches("[\\w]+[\\.]+[(]+[)]")) {
+		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}")) {
 			System.out.println("\n… Message Chain para "+s);
 		} else {
 			System.out.println("\nN„o È Message Chain para "+s);			

@@ -23,10 +23,14 @@ import org.eclipse.jface.text.Document;
 
 /**
  * 
- * ORDEM DAS CHAMADAS DOS MÉTODOS 1. execute(ExecutionEvent event) 2.
- * printProjectInfo(project) 3. printPackageInfos(javaProject) 4.
- * printICompilationUnitInfo(mypackage) 5. printCompilationUnitDetails(unit) 6.
- * printIMethods(unit) 7. printIMethodDetails(type)
+ * ORDEM DAS CHAMADAS DOS MÉTODOS 
+ * 1. execute(ExecutionEvent event) 
+ * 2. printProjectInfo(project) 
+ * 3. printPackageInfos(javaProject) 
+ * 4. printICompilationUnitInfo(mypackage) 
+ * 5. printCompilationUnitDetails(unit) 
+ * 6. printIMethods(unit) 
+ * 7. printIMethodDetails(type)
  *
  */
 

@@ -13,10 +13,10 @@ public class acaoPrincipal {
 	
 	
 	public static void verificaMessageChain (String s) {
-		if (s.matches("[\\w][\\.][\\w][()]")) {
-			System.out.println("… Message Chain para "+s);
+		if (s.matches("[\\w\\.]([\\w()\\.]{2,})")) {
+			System.out.println("\n… Message Chain para "+s);
 		} else {
-			System.out.println("N„o È Message Chain para "+s);			
+			System.out.println("\nN„o È Message Chain para "+s);			
 		}
 	}
 
@@ -39,7 +39,7 @@ public class acaoPrincipal {
 			}
 			
 			// Mostra o Message Chain na tela e d· seu tamanho
-			System.out.println("\nMessage Chain: " + messagechain);
+			System.out.println("\nString: " + messagechain);
 			System.out.println("Tamanho: " + messagechain.length());
 
 			// QUEBRA DA STRING E VALIDA«√O DE MESSAGE CHAIN

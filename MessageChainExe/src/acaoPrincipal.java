@@ -4,16 +4,17 @@ import java.util.regex.Pattern;
 public class acaoPrincipal {
 	
 	// objeto.a().b().c().d().f()
-	// objeto.a
-	// objeto().a()
+	// objeto.function PASSOU
+	// objeto().function()
 	// objeto().
 	// objeto()
 	// objeto.
+	// .objeto
 	// objeto
 	
 	
 	public static void verificaMessageChain (String s) {
-		if (s.matches("[\\w\\.]([\\w()\\.]{2,})")) {
+		if (s!=null && s.matches("[\\w]+\\.+[\\w()\\.]{2,}")) {
 			System.out.println("\n… Message Chain para "+s);
 		} else {
 			System.out.println("\nN„o È Message Chain para "+s);			

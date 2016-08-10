@@ -3,21 +3,24 @@ import java.util.regex.Pattern;
 
 public class acaoPrincipal {
 	
-	// objeto.a().b().c().d().f()
-	// objeto.function PASSOU
-	// objeto().function()
-	// objeto().
-	// objeto()
-	// objeto.
-	// .objeto
-	// objeto
+	public static final String[] testeErro = {"objeto", ".objeto", "objeto.", "objeto.function",
+			"objeto()", ".objeto()", "objeto.()", "objeto().",
+			"objeto().function", "objeto.()function","()objeto.function",
+			"objeto.function()"};
 	
+	public static final String[] testeValido = {"objeto.function().function2()", "objeto.function().function2().function3()"};
 	
 	public static void verificaMessageChain (String s) {
-		if (s!=null && s.matches("[\\w]+\\.+[\\w()\\.]{2,}")) {
+		if (s!=null && s.matches("[\\w]+\\.+[\\w]+()+\\.")) {
 			System.out.println("\n… Message Chain para "+s);
 		} else {
 			System.out.println("\nN„o È Message Chain para "+s);			
+		}
+	}
+	
+	public static void testaStrings (String[] s) {
+		for (int i = 0; i<s.length; i++) {
+			verificaMessageChain(s[i]);
 		}
 	}
 
@@ -29,8 +32,12 @@ public class acaoPrincipal {
 		boolean continua = true;
 
 		while (continua) {
+			// AUTOMATIZA TESTES
+			
+			testaStrings(testeErro);
+			
 			// Pede o Message Chain
-			System.out.println("Informe o Message Chain:\n");
+			/*System.out.println("Informe o Message Chain:\n");
 			messagechain = ler.nextLine();
 			
 			if (messagechain.isEmpty() == true) {
@@ -41,10 +48,10 @@ public class acaoPrincipal {
 			
 			// Mostra o Message Chain na tela e d· seu tamanho
 			System.out.println("\nString: " + messagechain);
-			System.out.println("Tamanho: " + messagechain.length());
+			System.out.println("Tamanho: " + messagechain.length());*/
 
 			// QUEBRA DA STRING E VALIDA«√O DE MESSAGE CHAIN
-			verificaMessageChain(messagechain);
+			//verificaMessageChain(messagechain);
 			
 			/*if (messagechain.contains(".") == true) {
 				System.out.println("\n… Message Chain!");

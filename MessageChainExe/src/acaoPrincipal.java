@@ -2,6 +2,14 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class acaoPrincipal {
+	
+	public static void verificaMessageChain (String s) {
+		if (s.matches("\\w+(\\.[a-zA-Z])+")) {
+			System.out.println("É Message Chain!");
+		} else {
+			System.out.println("Não é Message Chain!");			
+		}
+	}
 
 	public static void main(String[] args) {
 		// Variáveis globais
@@ -13,7 +21,7 @@ public class acaoPrincipal {
 		// criação de pattern para auxiliar na validação do message chain
 		//Pattern mc = 
 
-		// a().b().c().d().f()
+		// amor.a().b().c().d().f()
 
 		while (continua) {
 			// Pede o Message Chain
@@ -31,7 +39,8 @@ public class acaoPrincipal {
 			System.out.println("Tamanho: " + messagechain.length());
 
 			// QUEBRA DA STRING E VALIDAÇÃO DE MESSAGE CHAIN
-			if (messagechain.contains(".") == true) {
+			verificaMessageChain(messagechain);
+			/*if (messagechain.contains(".") == true) {
 				System.out.println("\nÉ Message Chain!");
 
 				// Quebra a variável quando acha . e armazena a sobra numa posição do array aux
@@ -47,7 +56,7 @@ public class acaoPrincipal {
 			} else {
 				System.out.println("\nNão é Message Chain!");
 				//TERMINA PROGRAMA
-			}
+			}*/
 
 			// Pergunta se quer continuar testando
 			System.out.println("\nOutro teste? 0 SIM // 1 NÃO");

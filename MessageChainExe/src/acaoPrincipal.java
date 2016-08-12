@@ -3,16 +3,17 @@ import java.util.regex.Pattern;
 
 public class acaoPrincipal {
 	
-	public static final String[] testeErro = {"objeto", ".objeto", "objeto.", "objeto.function",
+	public static final String[] testeErro = {"objeto", ".objeto", "objeto.", "objeto;",
+			"objeto.function", "objeto.function;", ";objeto.function", "objeto.;function", "objeto;.function",
 			"objeto()", ".objeto()", "objeto.()", "objeto().",
 			"objeto().function", "objeto.()function","()objeto.function",
 			"objeto.function()","objeto.function().", 
-			"objeto.function().function2", "objeto.function().function2."};
+			"objeto.function().function2", "objeto.function().function2.", "objeto.function().function2.;"};
 	
-	public static final String[] testeValido = {"objeto.function().function2()",
-			"objeto.function().function2().function3()",
-			"objeto.function().function2().function3().function4()", 
-			"objeto.function().function2().function3().function4().function5()"};
+	public static final String[] testeValido = {"objeto.function().function2();",
+			"objeto.function().function2().function3();",
+			"objeto.function().function2().function3().function4();", 
+			"objeto.function().function2().function3().function4().function5();"};
 	
 	public static void splitMessageChain (String s) {
 		// Quebra a variável quando acha . e armazena a sobra numa posição do array aux
@@ -27,7 +28,7 @@ public class acaoPrincipal {
 	}
 	
 	public static void verificaMessageChain (String s) {		
-		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}")) {
+		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}+[;]")) {
 			System.out.println("\nÉ Message Chain para "+s+"\n");
 			splitMessageChain(s);
 		} else {
@@ -42,25 +43,23 @@ public class acaoPrincipal {
 	}
 
 	public static void main(String[] args) {
-		/*testaStrings(testeErro);		
+		testaStrings(testeErro);		
 		System.out.println("\n#####################################################\n");		
-		testaStrings(testeValido);*/
+		testaStrings(testeValido);
 		
 		// Variáveis globais
-		Scanner ler = new Scanner(System.in);
+		/*Scanner ler = new Scanner(System.in);
 		String messagechain = null;
 		int resposta = 4;
 		//boolean continua = true;
 
-		//while (continua) {
+		while (continua) {
 			// Pede o Message Chain
 			System.out.println("Informe o Message Chain:\n");
 			messagechain = ler.nextLine();
 			
 			if (messagechain.isEmpty() == true) {
 				System.out.println("\nMessage Chain vazio! Não é válido!");
-				//TERMINA PROGRAMA
-				//return; ????????
 			}
 			
 			// Mostra o Message Chain na tela e dá seu tamanho
@@ -84,6 +83,6 @@ public class acaoPrincipal {
 				messagechain = null;
 				System.out.println("\n--------------------------------------------\n");
 			}
-		//}
+		//}*/
 	}
 }

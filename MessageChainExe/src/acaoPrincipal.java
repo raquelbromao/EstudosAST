@@ -8,12 +8,14 @@ public class acaoPrincipal {
 			"objeto()", ".objeto()", "objeto.()", "objeto().",
 			"objeto().function", "objeto.()function","()objeto.function",
 			"objeto.function()","objeto.function().", 
+			"a.somadiferente().subdiferente().multdiferente().raizdiferente()",
 			"objeto.function().function2", "objeto.function().function2.", "objeto.function().function2.;"};
 	
 	public static final String[] testeValido = {"objeto.function().function2();",
 			"objeto.function().function2().function3();",
 			"objeto.function().function2().function3().function4();", 
-			"objeto.function().function2().function3().function4().function5();"};
+			"objeto.function().function2().function3().function4().function5();",
+			"a.somadiferente().subdiferente().multdiferente().raizdiferente();"};
 	
 	public static void splitMessageChain (String s) {
 		// retira o ";" do final da string		

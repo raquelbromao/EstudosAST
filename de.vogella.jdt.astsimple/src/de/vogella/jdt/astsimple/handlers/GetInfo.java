@@ -61,6 +61,8 @@ public class GetInfo extends AbstractHandler {
 	}
 
 	public static void verificaMessageChain(String s) {
+		// verifica se a expressão coletada é igual ao regex criado
+		// não foi usado [;] no final do regex pq o compilador nem lê se não houver ele no final
 		if (s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}")) {
 			System.out.println("\nMessage Chain: " + s + "\n");
 			splitMessageChain(s);

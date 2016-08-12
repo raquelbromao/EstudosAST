@@ -37,39 +37,41 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  */
 
 public class GetInfo extends AbstractHandler {
-	
-	public static void splitMessageChain (String s) {
-		// retira o ";" do final da string		
+
+	public static void splitMessageChain(String s) {
+		// retira o ";" do final da string
 		s = s.replace(";", " ");
-				
-		// Quebra a variável quando acha . e armazena a sobra numa posição do array aux
+
+		// Quebra a variável quando acha . e armazena a sobra numa posição do
+		// array aux
 		// a().b() -> . é descartando e a() fica em aux[0] e b() em aux[1]
 		String[] aux = s.split(Pattern.quote("."));
 
 		// Pega o tamanho da string aux
 		// Imprime a variável aux na tela
-		for (int i = 0; i < aux.length; i++) {
-			System.out.println("String[" + i + "]: " + aux[i]);
-		}		
-	}
-	
-	public static void verificaMessageChain (String s) {		
-		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}+[;]")) {
-			System.out.println("\nÉ Message Chain: "+s+"\n");
-			splitMessageChain(s);
-		} else {
-			System.out.println("\nNão é Message Chain: "+s+"\n");	
+		System.out.println("Objeto: " + aux[0]);
+		for (int i = 1; i < aux.length; i++) {
+			System.out.println("Método[" + i + "]: " + aux[i]);
 		}
 	}
-	
-	public static void testaStrings (String[] s) {
-		for (int i = 0; i<s.length; i++) {
+
+	public static void verificaMessageChain(String s) {
+		if (s != null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}+[;]")) {
+			System.out.println("\nÉ Message Chain: " + s + "\n");
+			splitMessageChain(s);
+		} else {
+			System.out.println("\nNão é Message Chain: " + s + "\n");
+		}
+	}
+
+	public static void testaStrings(String[] s) {
+		for (int i = 0; i < s.length; i++) {
 			verificaMessageChain(s[i]);
 		}
 	}
 
 	private static final String JDT_NATURE = "org.eclipse.jdt.core.javanature";
-	//private StructuralPropertyDescriptor property;
+	// private StructuralPropertyDescriptor property;
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -102,58 +104,60 @@ public class GetInfo extends AbstractHandler {
 		// parse(JavaCore.create(project));
 		for (IPackageFragment mypackage : packages) {
 			if (mypackage.getKind() == IPackageFragmentRoot.K_SOURCE) {
-				//System.out.println("####### INFORMAÇÕES DO METHOD DECLARATION DO PROJETO " + mypackage.getElementName());
-				//createASTmethod(mypackage);
+				// System.out.println("####### INFORMAÇÕES DO METHOD DECLARATION
+				// DO PROJETO " + mypackage.getElementName());
+				// createASTmethod(mypackage);
 				if (mypackage.getElementName() != null) {
-					System.out.println("####### INFORMAÇÕES DO METHOD INVOCATION DO PROJETO " + mypackage.getElementName() + " ########");
+					System.out.println("####### INFORMAÇÕES DO METHOD INVOCATION DO PROJETO "
+							+ mypackage.getElementName() + " ########");
 				}
 				createASTInvocation(mypackage);
 			}
 		}
 	}
 
-	/*private void createASTmethod(IPackageFragment mypackage) throws JavaModelException {
-		for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
-			// now create the AST for the ICompilationUnits
-			CompilationUnit parse = parse(unit);
-			MethodVisitor visitor = new MethodVisitor();
-			parse.accept(visitor);			
-			
-			// Imprime na tela o nome do método e o tipo de retorno
-			for (MethodDeclaration method : visitor.getMethods()) {
-				System.out.println("\n####### Informações do METHOD DECLARATION ######");	
-				//System.out.println("Class name:" + method.getParent().getClass().getName());
-				//System.out.println("Node Type of Parent Node:" + method.getParent().getNodeType());
-				System.out.println("Method name: " + method.getName());
-				System.out.println("Return type: " + method.getReturnType2());
-				System.out.println("Return body: "+ method.getBody());
-			}
-		}
-	}*/
+	/*
+	 * private void createASTmethod(IPackageFragment mypackage) throws
+	 * JavaModelException { for (ICompilationUnit unit :
+	 * mypackage.getCompilationUnits()) { // now create the AST for the
+	 * ICompilationUnits CompilationUnit parse = parse(unit); MethodVisitor
+	 * visitor = new MethodVisitor(); parse.accept(visitor);
+	 * 
+	 * // Imprime na tela o nome do método e o tipo de retorno for
+	 * (MethodDeclaration method : visitor.getMethods()) {
+	 * System.out.println("\n####### Informações do METHOD DECLARATION ######");
+	 * //System.out.println("Class name:" +
+	 * method.getParent().getClass().getName());
+	 * //System.out.println("Node Type of Parent Node:" +
+	 * method.getParent().getNodeType()); System.out.println("Method name: " +
+	 * method.getName()); System.out.println("Return type: " +
+	 * method.getReturnType2()); System.out.println("Return body: "+
+	 * method.getBody()); } } }
+	 */
 
 	private void createASTInvocation(IPackageFragment mypackage) throws JavaModelException {
 		for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
 			// now create the AST for the ICompilationUnits
 			CompilationUnit parse = parse(unit);
 			MethodInvoke visitor = new MethodInvoke();
-			parse.accept(visitor);						
-			
+			parse.accept(visitor);
+
 			// Imprime na tela o nome do método e o tipo de retorno
-			for (MethodInvocation method : visitor.getMethods()) {					
+			for (MethodInvocation method : visitor.getMethods()) {
 				System.out.println("\n################################");
-				System.out.println("NAME: " + method.getName());			
+				System.out.println("NAME: " + method.getName());
 				System.out.println("PARENT: " + method.getParent());
 				System.out.println("ARGUMENTS: " + method.arguments());
-				
-				// Converter o method.getParent() em string e avalia se é Message Chain
+
+				// Converter o method.getParent() em string e avalia se é
+				// Message Chain
 				String s = null;
 				s = method.getParent().toString();
-				
+
 				verificaMessageChain(s);
-			}			
+			}
 		}
 	}
-	 
 
 	/**
 	 * Reads a ICompilationUnit and creates the AST DOM for manipulating the

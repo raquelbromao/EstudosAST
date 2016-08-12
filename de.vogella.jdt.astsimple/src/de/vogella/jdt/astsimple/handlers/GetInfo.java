@@ -21,6 +21,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 //import org.eclipse.jdt.core.dom.StructuralPropertyDescriptor;
 
@@ -37,6 +38,9 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  */
 
 public class GetInfo extends AbstractHandler {
+	
+	private static final String JDT_NATURE = "org.eclipse.jdt.core.javanature";
+	// private StructuralPropertyDescriptor property;
 
 	public static void splitMessageChain(String s) {
 		// retira o ";" do final da string
@@ -53,25 +57,24 @@ public class GetInfo extends AbstractHandler {
 		for (int i = 1; i < aux.length; i++) {
 			System.out.println("Método[" + i + "]: " + aux[i]);
 		}
+		
+		System.out.println("________________________________________________________________________________");
 	}
 
 	public static void verificaMessageChain(String s) {
-		if (s != null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}+[;]")) {
-			System.out.println("\nÉ Message Chain: " + s + "\n");
+		if (s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}")) {
+			System.out.println("\nMessage Chain: " + s + "\n");
 			splitMessageChain(s);
 		} else {
-			System.out.println("\nNão é Message Chain: " + s + "\n");
+			//System.out.println("Não é Message Chain: " + s + "\n");
 		}
 	}
 
-	public static void testaStrings(String[] s) {
+	/*public static void testaStrings(String[] s) {
 		for (int i = 0; i < s.length; i++) {
 			verificaMessageChain(s[i]);
 		}
-	}
-
-	private static final String JDT_NATURE = "org.eclipse.jdt.core.javanature";
-	// private StructuralPropertyDescriptor property;
+	}*/
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -99,6 +102,7 @@ public class GetInfo extends AbstractHandler {
 	 * private void analyseClass (IProject project) { //IProject class = root. }
 	 * 
 	 */
+
 	private void analyseMethods(IProject project) throws JavaModelException {
 		IPackageFragment[] packages = JavaCore.create(project).getPackageFragments();
 		// parse(JavaCore.create(project));
@@ -108,8 +112,8 @@ public class GetInfo extends AbstractHandler {
 				// DO PROJETO " + mypackage.getElementName());
 				// createASTmethod(mypackage);
 				if (mypackage.getElementName() != null) {
-					System.out.println("####### INFORMAÇÕES DO METHOD INVOCATION DO PROJETO "
-							+ mypackage.getElementName() + " ########");
+					System.out.println("####### INFORMAÇÕES DO EXPRESSION STATEMENT DO PROJETO "
+							+ mypackage.getElementName() + " ########\n");
 				}
 				createASTInvocation(mypackage);
 			}
@@ -139,22 +143,20 @@ public class GetInfo extends AbstractHandler {
 		for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
 			// now create the AST for the ICompilationUnits
 			CompilationUnit parse = parse(unit);
-			MethodInvoke visitor = new MethodInvoke();
+			ExpressionInvoke visitor = new ExpressionInvoke();
 			parse.accept(visitor);
 
 			// Imprime na tela o nome do método e o tipo de retorno
-			for (MethodInvocation method : visitor.getMethods()) {
-				System.out.println("\n################################");
-				System.out.println("NAME: " + method.getName());
-				System.out.println("PARENT: " + method.getParent());
-				System.out.println("ARGUMENTS: " + method.arguments());
+			for (ExpressionStatement method : visitor.getMethods()) {
+				//System.out.println("\n\nNAME: " + method.getExpression());
+				//System.out.println("PARENT: " + method.getParent());
+				//System.out.println("ARGUMENTS: " + method.arguments());
 
-				// Converter o method.getParent() em string e avalia se é
-				// Message Chain
-				String s = null;
-				s = method.getParent().toString();
+				// Converter o method.getParent() em string e avalia se é Message Chain
+				String t = null;
+				t = method.getExpression().toString();
 
-				verificaMessageChain(s);
+				verificaMessageChain(t);
 			}
 		}
 	}

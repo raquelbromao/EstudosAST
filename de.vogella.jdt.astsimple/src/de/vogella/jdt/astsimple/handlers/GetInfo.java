@@ -51,7 +51,7 @@ public class GetInfo extends AbstractHandler {
 	}
 	
 	public static void verificaMessageChain (String s) {		
-		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}")) {
+		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}+[\\;]")) {
 			System.out.println("\nÉ Message Chain: "+s+"\n");
 			splitMessageChain(s);
 		} else {
@@ -137,12 +137,16 @@ public class GetInfo extends AbstractHandler {
 			
 			// Imprime na tela o nome do método e o tipo de retorno
 			for (MethodInvocation method : visitor.getMethods()) {					
-				System.out.println("\n####### Informações do METHOD INVOCATION " + method.getName() +  " ######");
-				//System.out.println("NAME: " + method.getName());			
+				System.out.println("\n################################");
+				System.out.println("NAME: " + method.getName());			
 				System.out.println("PARENT: " + method.getParent());
 				System.out.println("ARGUMENTS: " + method.arguments());
-				//System.out.println("Class: " + method.getClass());
-				//verificaMessageChain(method);
+				
+				// Converter o method.getParent() em string e avalia se é Message Chain
+				String s = null;
+				s = method.getParent().toString();
+				
+				verificaMessageChain(s);
 			}			
 		}
 	}
@@ -155,7 +159,6 @@ public class GetInfo extends AbstractHandler {
 	 * @param unit
 	 * @return
 	 */
-
 	private static CompilationUnit parse(ICompilationUnit unit) {
 		ASTParser parser = ASTParser.newParser(AST.JLS8);
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);

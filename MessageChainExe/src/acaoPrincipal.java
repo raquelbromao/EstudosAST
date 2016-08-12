@@ -25,8 +25,9 @@ public class acaoPrincipal {
 
 		// Pega o tamanho da string aux
 		// Imprime a variável aux na tela
-		for (int i = 0; i < aux.length; i++) {
-			System.out.println("String[" + i + "]: " + aux[i]);
+		System.out.println("Objeto: " + aux[0]);		
+		for (int i = 1; i < aux.length; i++) {
+			System.out.println("Método[" + i + "]: " + aux[i]);
 		}		
 	}
 	

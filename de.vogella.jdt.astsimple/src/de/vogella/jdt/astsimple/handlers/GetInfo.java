@@ -39,6 +39,9 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 public class GetInfo extends AbstractHandler {
 	
 	public static void splitMessageChain (String s) {
+		// retira o ";" do final da string		
+		s = s.replace(";", " ");
+				
 		// Quebra a vari·vel quando acha . e armazena a sobra numa posiÁ„o do array aux
 		// a().b() -> . È descartando e a() fica em aux[0] e b() em aux[1]
 		String[] aux = s.split(Pattern.quote("."));
@@ -51,7 +54,7 @@ public class GetInfo extends AbstractHandler {
 	}
 	
 	public static void verificaMessageChain (String s) {		
-		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}+[\\;]")) {
+		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}+[;]")) {
 			System.out.println("\n… Message Chain: "+s+"\n");
 			splitMessageChain(s);
 		} else {

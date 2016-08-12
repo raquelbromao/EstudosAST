@@ -16,9 +16,12 @@ public class acaoPrincipal {
 			"objeto.function().function2().function3().function4().function5();"};
 	
 	public static void splitMessageChain (String s) {
+		// retira o ";" do final da string		
+		s = s.replace(";", " ");
+		
 		// Quebra a variável quando acha . e armazena a sobra numa posição do array aux
 		// a().b() -> . é descartando e a() fica em aux[0] e b() em aux[1]
-		String[] aux = s.split(Pattern.quote("."));
+		String[] aux = s.split(Pattern.quote("."));		
 
 		// Pega o tamanho da string aux
 		// Imprime a variável aux na tela

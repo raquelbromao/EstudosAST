@@ -120,24 +120,6 @@ public class GetInfo extends AbstractHandler {
 		}
 	}
 
-	/*
-	 * private void createASTmethod(IPackageFragment mypackage) throws
-	 * JavaModelException { for (ICompilationUnit unit :
-	 * mypackage.getCompilationUnits()) { // now create the AST for the
-	 * ICompilationUnits CompilationUnit parse = parse(unit); MethodVisitor
-	 * visitor = new MethodVisitor(); parse.accept(visitor);
-	 * 
-	 * // Imprime na tela o nome do método e o tipo de retorno for
-	 * (MethodDeclaration method : visitor.getMethods()) {
-	 * System.out.println("\n####### Informações do METHOD DECLARATION ######");
-	 * //System.out.println("Class name:" +
-	 * method.getParent().getClass().getName());
-	 * //System.out.println("Node Type of Parent Node:" +
-	 * method.getParent().getNodeType()); System.out.println("Method name: " +
-	 * method.getName()); System.out.println("Return type: " +
-	 * method.getReturnType2()); System.out.println("Return body: "+
-	 * method.getBody()); } } }
-	 */
 
 	private void createASTInvocation(IPackageFragment mypackage) throws JavaModelException {
 		for (ICompilationUnit unit : mypackage.getCompilationUnits()) {

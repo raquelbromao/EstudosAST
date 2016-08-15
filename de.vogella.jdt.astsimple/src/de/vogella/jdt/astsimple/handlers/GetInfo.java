@@ -22,7 +22,6 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
-//import org.eclipse.jdt.core.dom.StructuralPropertyDescriptor;
 
 /**
  * 

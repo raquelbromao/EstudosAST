@@ -1,3 +1,4 @@
+package alg;
 
 public class analisaASTView {
 	public int somadiferente(int a, int b) {
@@ -27,7 +28,7 @@ public class analisaASTView {
 
 	public void chamadacadeia() {
 		Object a;
-		a.somadiferente().subdiferente().multdiferente().raizdiferente();
+		//a.somadiferente().subdiferente().multdiferente().raizdiferente();
 	}
 
 }

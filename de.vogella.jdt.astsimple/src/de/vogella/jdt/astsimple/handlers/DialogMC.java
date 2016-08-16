@@ -11,15 +11,18 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 import de.vogella.jdt.astsimple.handlers.GetInfo;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class DialogMC extends Dialog {
 
 	protected Object result;
-	protected Shell shell;
+	protected Shell shlMessageChain;
 	private Text results;
 
 	/**
 	 * Create the dialog.
+	 * 
 	 * @param parent
 	 * @param style
 	 */
@@ -30,14 +33,15 @@ public class DialogMC extends Dialog {
 
 	/**
 	 * Open the dialog.
+	 * 
 	 * @return the result
 	 */
 	public Object open() {
 		createContents();
-		shell.open();
-		shell.layout();
+		shlMessageChain.open();
+		shlMessageChain.layout();
 		Display display = getParent().getDisplay();
-		while (!shell.isDisposed()) {
+		while (!shlMessageChain.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
@@ -49,28 +53,36 @@ public class DialogMC extends Dialog {
 	 * Create contents of the dialog.
 	 */
 	private void createContents() {
-		shell = new Shell(getParent(), getStyle());
-		shell.setSize(451, 348);
-		shell.setText(getText());
-		
-		results = new Text(shell, SWT.BORDER);
-		results.setBounds(24, 10, 396, 233);
-		results.setText(createASTInvocation);
-		
-		
-		Button btnApply = new Button(shell, SWT.NONE);
-		btnApply.setBounds(24, 261, 75, 25);
+		shlMessageChain = new Shell(getParent(), getStyle());
+		shlMessageChain.setSize(451, 348);
+		// NOME DA JANELA
+		shlMessageChain.setText("Message Chain");
+
+		// CAIXA DE TEXTO COM RESULTADOS
+		results = new Text(shlMessageChain, SWT.BORDER);
+		results.setBounds(37, 10, 370, 245);
+
+		// BUTTON APPLY
+		Button btnApply = new Button(shlMessageChain, SWT.NONE);
+		btnApply.setBounds(37, 261, 75, 25);
 		btnApply.setText("Apply");
-		
-		Button btnCancel = new Button(shell, SWT.NONE);
+		btnApply.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				//INSERIR ALGORITMO AQUI
+				//result.setText();
+			}
+		});
+
+		// BUTTON CANCEL
+		Button btnCancel = new Button(shlMessageChain, SWT.NONE);
+		btnCancel.setBounds(118, 261, 75, 25);
+		btnCancel.setText("Cancel");
 		btnCancel.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				shell.close();
+				shlMessageChain.close();
 			}
 		});
-		btnCancel.setBounds(107, 261, 75, 25);
-		btnCancel.setText("Cancel");
-
 	}
 }

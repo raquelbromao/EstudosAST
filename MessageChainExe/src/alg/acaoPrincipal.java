@@ -47,9 +47,8 @@ public class acaoPrincipal {
 	public static void verificaMessageChain (String s) {		
 		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[\\w]*+[)]){2,}+[;]")) {
 			System.out.println("\n… Message Chain para "+s+"\n");
-			splitMessageChain(s);
-		}
-		else if (s!=null && s.matches("[\\w] +	([\\.] + [\\w] + [(] + [\\w]* + ([,] + [\\w])* + [)]) {2,} + [;]")) {
+			splitMessageChain(s); // {0,} equivale a *
+		} else if (s!=null && s.matches("[\\w] + ([\\.] + [\\w] + [(] + [\\w]* + ([,] + [\\w])* + [)]) {2,} + [;]")) {
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s);
 		} else {

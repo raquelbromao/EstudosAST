@@ -18,6 +18,7 @@ public class acaoPrincipal {
 			"objeto.function().function2().function3().function4().function5();",
 			"a.somadiferente().subdiferente().multdiferente().raizdiferente();"};
 	
+	// String p/ testes de message chains que talvez o algoritmo não cubra
 	public static final String[] testeExcecoes = {"enemies.get(i).isAlive();", "tower.getType().initialPrice();", 
 			"tower.getType(i,j).initialPrice(f,g);", "tower.getType().initialPrice().love(f,g);",
 			"this.gameMap.getSector(x,y).occupant.add(newTower);",

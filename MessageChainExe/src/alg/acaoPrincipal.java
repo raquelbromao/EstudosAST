@@ -18,6 +18,13 @@ public class acaoPrincipal {
 			"objeto.function().function2().function3().function4().function5();",
 			"a.somadiferente().subdiferente().multdiferente().raizdiferente();"};
 	
+	public static final String[] testeExcecoes = {"enemies.get(i).isAlive();", "tower.getType().initialPrice();", 
+			"this.gameMap.getSector(x,y).occupant.add(newTower);",
+			"type.getTowerType().getConstructor(ArrayList.class, Map.class, Integer.class, Integer.class);", 
+			"BasicEnemy.class.getConstructor(Map.class, Path.class);", 
+			"type.getEnemyType().getConstructor(Map.class, Path.class);", 
+			"mainMenuScene.getStylesheets().addAll(this.getClass().getResource('style.css').toExternalForm());"};
+	
 	public static void splitMessageChain (String s) {
 		// retira o ";" do final da string		
 		s = s.replace(";", " ");
@@ -35,7 +42,7 @@ public class acaoPrincipal {
 	}
 	
 	public static void verificaMessageChain (String s) {		
-		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[)]){2,}+[;]")) {
+		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[\\w]*+[)]){2,}+[;]")) {
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s);
 		} else {
@@ -53,6 +60,8 @@ public class acaoPrincipal {
 		testaStrings(testeErro);		
 		System.out.println("\n#####################################################\n");		
 		testaStrings(testeValido);
+		System.out.println("\n#####################################################\n");	
+		testaStrings(testeExcecoes);
 		
 		// Vari·veis globais
 		/*Scanner ler = new Scanner(System.in);

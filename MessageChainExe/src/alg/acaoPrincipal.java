@@ -19,7 +19,8 @@ public class acaoPrincipal {
 			"a.somadiferente().subdiferente().multdiferente().raizdiferente();"};
 	
 	// String p/ testes de message chains que talvez o algoritmo n„o cubra
-	public static final String[] testeExcecoes = {"enemies.get(i).isAlive();", "tower.getType().initialPrice();", 
+	public static final String[] testeExcecoes = {"enemies.get(i).isAlive();", "tower.getType().initialPrice();",
+			"tower.getType().initialPrice(f);",
 			"tower.getType(i,j).initialPrice(f,g);", "tower.getType().initialPrice().love(f,g);",
 			"this.gameMap.getSector(x,y).occupant.add(newTower);",
 			"type.getTowerType().getConstructor(ArrayList.class, Map.class, Integer.class, Integer.class);", 
@@ -45,6 +46,10 @@ public class acaoPrincipal {
 	
 	public static void verificaMessageChain (String s) {		
 		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[\\w]*+[)]){2,}+[;]")) {
+			System.out.println("\n… Message Chain para "+s+"\n");
+			splitMessageChain(s);
+		}
+		else if (s!=null && s.matches("[\\w] +	([\\.] + [\\w] + [(] + [\\w]* + ([,] + [\\w])* + [)]) {2,} + [;]")) {
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s);
 		} else {

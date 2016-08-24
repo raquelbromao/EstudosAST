@@ -19,6 +19,7 @@ public class acaoPrincipal {
 			"a.somadiferente().subdiferente().multdiferente().raizdiferente();"};
 	
 	public static final String[] testeExcecoes = {"enemies.get(i).isAlive();", "tower.getType().initialPrice();", 
+			"tower.getType(i,j).initialPrice(f,g);", "tower.getType().initialPrice().love(f,g);",
 			"this.gameMap.getSector(x,y).occupant.add(newTower);",
 			"type.getTowerType().getConstructor(ArrayList.class, Map.class, Integer.class, Integer.class);", 
 			"BasicEnemy.class.getConstructor(Map.class, Path.class);", 

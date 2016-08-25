@@ -20,7 +20,7 @@ public class acaoPrincipal {
 	
 	// String p/ testes de message chains que talvez o algoritmo n„o cubra
 	public static final String[] testeExcecoes = {"enemies.get(i).isAlive();", "tower.getType().initialPrice();",
-			"tower.getType().initialPrice(f);",
+			"tower.getType().initialPrice(f);", "tower.getType().initialPrice(PackageFragment);",
 			"tower.getType(i,j).initialPrice(f,g);", "tower.getType().initialPrice().love(f,g);",
 			"this.gameMap.getSector(x,y).occupant.add(newTower);",
 			"type.getTowerType().getConstructor(ArrayList.class, Map.class, Integer.class, Integer.class);", 
@@ -29,11 +29,11 @@ public class acaoPrincipal {
 			"mainMenuScene.getStylesheets().addAll(this.getClass().getResource('style.css').toExternalForm());"};
 	
 	public static void splitMessageChain (String s) {
-		// retira o ";" do final da string		
+		// retira o ";" do final da string, substituindo por espaÁo em branco	
 		s = s.replace(";", " ");
 		
-		// Quebra a vari·vel quando acha . e armazena a sobra numa posiÁ„o do array aux
-		// a().b() -> . È descartando e a() fica em aux[0] e b() em aux[1]
+		// Quebra a vari·vel quando acha . e armazena o resto numa posiÁ„o do array aux
+		// a().b() -> . È descartado e a() fica em aux[0] e b() em aux[1]
 		String[] aux = s.split(Pattern.quote("."));		
 
 		// Pega o tamanho da string aux
@@ -48,7 +48,7 @@ public class acaoPrincipal {
 		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[\\w]*+[)]){2,}+[;]")) {
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s); // {0,} equivale a *
-		} else if (s!=null && s.matches("[\\w] + ([\\.] + [\\w] + [(] + [\\w]* + ([,] + [\\w])* + [)]) {2,} + [;]")) {
+		} else if (s!=null && s.matches("[\\w] + ([\\.] + [\\w] + [(] + [\\w]* + ([,]+(\\s)*+[\\w])* + [)]) {2,} + [;]")) {
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s);
 		} else {

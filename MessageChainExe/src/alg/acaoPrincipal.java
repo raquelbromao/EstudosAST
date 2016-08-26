@@ -141,16 +141,9 @@ public class acaoPrincipal {
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s,0);
-		}/* else if (s!=null && s.matches("[\\w]+ ([\\.] + [\\w] + [(] + [\\w]* + ([,]+([\\s])*[\\w]+)* + [)]) {2,}[;]")) {
-		}
-		}
-			System.out.println("\n… Message Chain para "+s+"\n");
-			splitMessageChain(s, 1); 
-		} else if (s!=null && s.matches("[[Tt]his]? [\\w]+ ( [\\.]+ [\\w]+ [(]+ [\\w]*+ [)]) {2,} [;]")) {
-			// CASO: this.object.function1(x,y).function2(w,z);
-			System.out.println("\n… Message Chain para "+s+"\n");
-			splitMessageChain(s,0); 
-		}*/ else {
+		} else if (s.isEmpty()) {
+			System.out.println("\nString vazia!\n");
+		} else {
 			System.out.println("\nN„o È Message Chain para "+s+"\n");	
 		}
 	}

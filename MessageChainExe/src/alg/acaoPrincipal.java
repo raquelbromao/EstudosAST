@@ -15,7 +15,10 @@ public class acaoPrincipal {
 			"objeto..function().function2();","objeto.function(()).function2();",
 			"objeto.function()).function2();", "objeto.function(().function2();", 
 			"this.object.function();", "This.object.function();", "This.objeto.function(()).function2();",
-			"This.objeto.function(().function2();", "This.objeto.function()).function2();"};
+			"This.objeto.function(().function2();", "This.objeto.function()).function2();",
+			"objeto.function(param1,param2,param3);", "objeto.function(param1,param2,param3)",
+			"objeto.function((param1,param2,param3));", "objeto.function((param1,param2,param3);",
+			"objeto.function(param1,param2,param3));", ""};
 	
 	// String p/ testes que o algoritmo DEVE cobrir
 	public static final String[] testeValido = {"objeto.function().function2();",
@@ -32,8 +35,8 @@ public class acaoPrincipal {
 			"This.objeto.function().function2().function3().function4();",
 			"This.objeto.function().function2().function3();","This.objeto.function().function2();",
 			"this.objeto.function(param1).function2();", "This.objeto.function().function2(param2);",
-			"tower.getType(i,j).initialPrice(f,g);", 
-			"tower.getType().initialPrice().love(f,g);"};
+			"tower.getType(i,j).initialPrice(f,g);", "tower.getType().initialPrice().love(f,g);",
+			"objeto.function(param1,param2,param3).function2(param4,param5,param6);"};
 	
 	// String p/ testes que talvez o algoritmo n„o cubra
 	public static final String[] testeExcecoes = {"this.gameMap.getSector(x,y).occupant.add(newTower);",
@@ -109,7 +112,7 @@ public class acaoPrincipal {
 			 * 
 			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
 			 * 
-			 * (...){2,} -> grupo que deve ser repetido 2 ou mais vezes
+			 * (...){2,} -> grupo 2 que deve ser repetido 2 ou mais vezes
 			 * 
 			 * [\\.] -> necess·rio conter "." uma vez
 			 * 
@@ -126,7 +129,20 @@ public class acaoPrincipal {
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s,1);
+		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(][\\w]+([,][\\w]+)*[)]){2,}[;]")) {
+			/*
+			 * EXPLICA«√O REGEX:
+			 * 
+			 * CASO 1:
+			 * CASO 2:
+			 * 
+			 * 
+			 * 
+			 */
+			System.out.println("\n… Message Chain para "+s+"\n");
+			splitMessageChain(s,0);
 		}/* else if (s!=null && s.matches("[\\w]+ ([\\.] + [\\w] + [(] + [\\w]* + ([,]+([\\s])*[\\w]+)* + [)]) {2,}[;]")) {
+		}
 		}
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s, 1); 

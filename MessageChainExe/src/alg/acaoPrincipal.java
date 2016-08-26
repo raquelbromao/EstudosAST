@@ -11,7 +11,8 @@ public class acaoPrincipal {
 			"objeto.function()","objeto.function().", 
 			"a.somadiferente().subdiferente().multdiferente().raizdiferente()",
 			"objeto.function().function2", "objeto.function().function2.", "objeto.function().function2.;",
-			"objeto..function().function2();"};
+			"objeto..function().function2();","objeto.function(()).function2();",
+			"objeto.function()).function2();", "objeto.function(().function2();"};
 	
 	public static final String[] testeValido = {"objeto.function().function2();",
 			"objeto.function().function2().function3();",
@@ -54,7 +55,7 @@ public class acaoPrincipal {
 	}
 	
 	public static void verificaMessageChain (String s) {		
-		if (s!=null && s.matches("[\\w]+([\\.]{1}[\\w]+[(]+[\\w]*+[)]){2,}[;]")) {
+		if (s!=null && s.matches("[\\w]+([\\.]{1}[\\w]+[(][\\w]*+[)]){2,}[;]")) {
 			// CASO: objeto.function1().function2();
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s,0); 

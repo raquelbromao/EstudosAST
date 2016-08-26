@@ -31,6 +31,7 @@ public class acaoPrincipal {
 			"This.objeto.function().function2().function3().function4().function5();",
 			"This.objeto.function().function2().function3().function4();",
 			"This.objeto.function().function2().function3();","This.objeto.function().function2();",
+			"this.objeto.function(param1).function2();", "This.objeto.function().function2(param2);",
 			"tower.getType(i,j).initialPrice(f,g);", 
 			"tower.getType().initialPrice().love(f,g);"};
 	
@@ -84,7 +85,7 @@ public class acaoPrincipal {
 			 * 
 			 * [(] -> necessário conter "(" uma vez
 			 * 
-			 * [\\w]*+ -> qlqr combinação de caracteres numéricos e/ou literais,
+			 * [\\w]* -> qlqr combinação de caracteres numéricos e/ou literais, 0 ou infinitas vezes
 			 * 
 			 * [)] -> necessário conter ")" uma vez
 			 * 
@@ -93,12 +94,34 @@ public class acaoPrincipal {
 			 */
 			System.out.println("\nÉ Message Chain para "+s+"\n");
 			splitMessageChain(s,0); 
-		} else if (s!=null && s.matches("([tT]his)[\\.][\\w]+([\\.][\\w]+[(][)]){2,}[;]")) {
+		} else if (s!=null && s.matches("([tT]his)[\\.][\\w]+([\\.][\\w]+[(][\\w]*[)]){2,}[;]")) {
 			/*
 			 * EXPLICAÇÃO REGEX:
 			 * 
 			 * CASO 1: [tT]his.objeto.function1().function2()...functionN();
 			 * CASO 2: [tT]his.function1().function2()...functionN();
+			 * 
+			 * (...) -> grupo 1
+			 * 
+			 * [Tt]his -> This ou this uma única vez
+			 * 
+			 * [\\.] -> necessário conter "." uma vez
+			 * 
+			 * [\\w]+ -> qlqr combinação de caracteres numéricos e/ou literais, repetindo  1 ou infinitas vezes
+			 * 
+			 * (...){2,} -> grupo que deve ser repetido 2 ou mais vezes
+			 * 
+			 * [\\.] -> necessário conter "." uma vez
+			 * 
+			 * [\\w]+ -> qlqr combinação de caracteres numéricos e/ou literais, repetindo  1 ou infinitas vezes
+			 * 
+			 * [(] -> necessário conter "(" uma vez
+			 * 
+			 * [\\w]* -> qlqr combinação de caracteres numéricos e/ou literais, 0 ou infinitas vezes
+			 *  
+			 * [)] -> necessário conter ")" uma vez
+			 * 
+			 * [;] -> necessário o caracter ";" no final para ser aceito
 			 * 
 			 */
 			System.out.println("\nÉ Message Chain para "+s+"\n");

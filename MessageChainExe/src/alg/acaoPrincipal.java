@@ -40,23 +40,45 @@ public class acaoPrincipal {
 
 		// Pega o tamanho da string aux
 		// Imprime a vari·vel aux na tela
-		if (j == 1) {
+		if (j == 0) {
+			System.out.println("Objeto: " + aux[0]);		
+			for (int i = 1; i < aux.length; i++) {
+			System.out.println("MÈtodo[" + i + "]: " + aux[i]);
+			}				
+		} else if (j == 1) {	
 			System.out.println("This -> " + aux[0]);	
 			System.out.println("Objeto: " + aux[1]);	
 			for (int i = 2; i < aux.length; i++) {
 				System.out.println("MÈtodo[" + i + "]: " + aux[i]);
 			}
-		} else if (j == 0) {
-			System.out.println("Objeto: " + aux[0]);		
-			for (int i = 1; i < aux.length; i++) {
-			System.out.println("MÈtodo[" + i + "]: " + aux[i]);
-			}		
 		} 
 	}
 	
 	public static void verificaMessageChain (String s) {		
 		if (s!=null && s.matches("[\\w]+([\\.]{1}[\\w]+[(][\\w]*+[)]){2,}[;]")) {
-			// CASO: objeto.function1().function2();
+			/*
+			 * EXPLICA«√O REGEX:
+			 * 
+			 * CASO 1: objeto.function1().function2();
+			 * CASO 2: objeto.function1(param1).function2();
+			 * 
+			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
+			 * 
+			 * (...){2,} -> grupo que deve ser repetido 2 ou mais vezes
+			 * 
+			 * [\\.]{1} -> necess·rio conter "." uma vez
+			 * 
+			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
+			 * 
+			 * [(] -> necess·rio conter "(" uma vez
+			 * 
+			 * [\\w]*+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais,
+			 * 
+			 * [)] -> necess·rio conter ")" uma vez
+			 * 
+			 * [;] -> necess·rio o caracter ";" no final para ser aceito
+			 * 
+			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s,0); 
 			// {0,} equivale a *

@@ -13,7 +13,9 @@ public class acaoPrincipal {
 			"a.somadiferente().subdiferente().multdiferente().raizdiferente()",
 			"objeto.function().function2", "objeto.function().function2.", "objeto.function().function2.;",
 			"objeto..function().function2();","objeto.function(()).function2();",
-			"objeto.function()).function2();", "objeto.function(().function2();"};
+			"objeto.function()).function2();", "objeto.function(().function2();", 
+			"this.object.function();", "This.object.function();", "This.objeto.function(()).function2();",
+			"This.objeto.function(().function2();", "This.objeto.function()).function2();"};
 	
 	// String p/ testes que o algoritmo DEVE cobrir
 	public static final String[] testeValido = {"objeto.function().function2();",
@@ -22,9 +24,15 @@ public class acaoPrincipal {
 			"objeto.function().function2().function3().function4().function5();",
 			"a.somadiferente().subdiferente().multdiferente().raizdiferente();", "enemies.get(i).isAlive();", 
 			"tower.getType().initialPrice();","tower.getType().initialPrice(f);", 
-			"tower.getType().initialPrice(PackageFragment);","tower.getType(i,j).initialPrice(f,g);", 
-			"tower.getType().initialPrice().love(f,g);",
-			"this.objeto.function().function2();", "This.objeto.function().function2();"};
+			"tower.getType().initialPrice(PackageFragment);",
+			"this.objeto.function().function2().function3().function4().function5();",
+			"this.objeto.function().function2().function3().function4();",
+			"this.objeto.function().function2().function3();", "this.objeto.function().function2();",
+			"This.objeto.function().function2().function3().function4().function5();",
+			"This.objeto.function().function2().function3().function4();",
+			"This.objeto.function().function2().function3();","This.objeto.function().function2();",
+			"tower.getType(i,j).initialPrice(f,g);", 
+			"tower.getType().initialPrice().love(f,g);"};
 	
 	// String p/ testes que talvez o algoritmo n„o cubra
 	public static final String[] testeExcecoes = {"this.gameMap.getSector(x,y).occupant.add(newTower);",
@@ -51,18 +59,20 @@ public class acaoPrincipal {
 			System.out.println("This -> " + aux[0]);	
 			System.out.println("Objeto: " + aux[1]);	
 			for (int i = 2; i < aux.length; i++) {
-				System.out.println("MÈtodo[" + i + "]: " + aux[i]);
+				System.out.println("MÈtodo[" + (i - 1) + "]: " + aux[i]);
 			}
 		} 
 	}
 	
 	public static void verificaMessageChain (String s) {		
-		if (s!=null && s.matches("[\\w]+([\\.]{1}[\\w]+[(][\\w]*+[)]){2,}[;]")) {
+		if (s!=null && s.matches("[\\w]+([\\.]{1}[\\w]+[(][\\w]*[)]){2,}[;]")) {
 			/*
 			 * EXPLICA«√O REGEX:
 			 * 
-			 * CASO 1: objeto.function1().function2();
-			 * CASO 2: objeto.function1(param1).function2();
+			 * CASO 1: objeto.function1().function2()...functionN();
+			 * CASO 2: objeto.function1(param1).function2()...functionN();
+			 * CASO 3: objeto.function1().function2(param2)...functionN();
+			 * CASO 4: objeto.function1(param1).function2(param2)...functionN(paramN);
 			 * 
 			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
 			 * 
@@ -83,17 +93,16 @@ public class acaoPrincipal {
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s,0); 
-		} else if (s.matches("([Tt]his){1}[\\w]+([\\.]{1}[\\w]+[(][\\w]*+[)]){2,}[;]")) {
-			System.out.println("\n… Message Chain para "+s+"\n");
-			splitMessageChain(s,1);
+		} else if (s!=null && s.matches("([tT]his)[\\.][\\w]+([\\.][\\w]+[(][)]){2,}[;]")) {
 			/*
 			 * EXPLICA«√O REGEX:
 			 * 
-			 * CASO 1: this.objeto.function()...
-			 * CASO 2: This.objeto.function()...
-			 * 
+			 * CASO 1: [tT]his.objeto.function1().function2()...functionN();
+			 * CASO 2: [tT]his.function1().function2()...functionN();
 			 * 
 			 */
+			System.out.println("\n… Message Chain para "+s+"\n");
+			splitMessageChain(s,1);
 		}/* else if (s!=null && s.matches("[\\w]+ ([\\.] + [\\w] + [(] + [\\w]* + ([,]+([\\s])*[\\w]+)* + [)]) {2,}[;]")) {
 		}
 			System.out.println("\n… Message Chain para "+s+"\n");

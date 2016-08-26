@@ -141,7 +141,7 @@ public class acaoPrincipal {
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s,0);
-		} else if (s.isEmpty()) {
+		} else if (s.isEmpty()) { // Retorna true (0) qnd for vazia false (1) qnd for diferente de nula
 			System.out.println("\nString vazia!\n");
 		} else {
 			System.out.println("\nN„o È Message Chain para "+s+"\n");	

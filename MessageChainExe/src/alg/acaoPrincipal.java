@@ -129,7 +129,7 @@ public class acaoPrincipal {
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s,1);
-		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(][\\w]+([,][\\w]+)*[)]){2,}[;]")) {
+		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(][\\w]*([,][\\w]+)*[)]){2,}[;]")) {
 			/*
 			 * EXPLICA«√O REGEX:
 			 * 

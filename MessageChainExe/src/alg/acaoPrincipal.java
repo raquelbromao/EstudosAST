@@ -10,7 +10,8 @@ public class acaoPrincipal {
 			"objeto().function", "objeto.()function","()objeto.function",
 			"objeto.function()","objeto.function().", 
 			"a.somadiferente().subdiferente().multdiferente().raizdiferente()",
-			"objeto.function().function2", "objeto.function().function2.", "objeto.function().function2.;"};
+			"objeto.function().function2", "objeto.function().function2.", "objeto.function().function2.;",
+			"objeto..function().function2();"};
 	
 	public static final String[] testeValido = {"objeto.function().function2();",
 			"objeto.function().function2().function3();",
@@ -28,30 +29,44 @@ public class acaoPrincipal {
 			"type.getEnemyType().getConstructor(Map.class, Path.class);", 
 			"mainMenuScene.getStylesheets().addAll(this.getClass().getResource('style.css').toExternalForm());"};
 	
-	public static void splitMessageChain (String s) {
+	public static void splitMessageChain (String s, int j) {
 		// retira o ";" do final da string, substituindo por espaço em branco	
 		s = s.replace(";", " ");
 		
-		// Quebra a variável quando acha . e armazena o resto numa posição do array aux
-		// a().b() -> . é descartado e a() fica em aux[0] e b() em aux[1]
+		// Quebra a variável quando acha "." e armazena o resto numa posição do array aux
+		// a().b() -> "." é descartado e "a()" fica em aux[0] e "b()" em aux[1]
 		String[] aux = s.split(Pattern.quote("."));		
 
 		// Pega o tamanho da string aux
 		// Imprime a variável aux na tela
-		System.out.println("Objeto: " + aux[0]);		
-		for (int i = 1; i < aux.length; i++) {
+		if (j == 1) {
+			System.out.println("This -> " + aux[0]);	
+			System.out.println("Objeto: " + aux[1]);	
+			for (int i = 2; i < aux.length; i++) {
+				System.out.println("Método[" + i + "]: " + aux[i]);
+			}
+		} else if (j == 0) {
+			System.out.println("Objeto: " + aux[0]);		
+			for (int i = 1; i < aux.length; i++) {
 			System.out.println("Método[" + i + "]: " + aux[i]);
-		}		
+			}		
+		} 
 	}
 	
 	public static void verificaMessageChain (String s) {		
-		if (s!=null && s.matches("[\\w]+([\\.]+[\\w]+[(]+[\\w]*+[)]){2,}+[;]")) {
+		if (s!=null && s.matches("[\\w]+([\\.]{1}[\\w]+[(]+[\\w]*+[)]){2,}[;]")) {
+			// CASO: objeto.function1().function2();
 			System.out.println("\nÉ Message Chain para "+s+"\n");
-			splitMessageChain(s); // {0,} equivale a *
-		} else if (s!=null && s.matches("[\\w]+([\\.] + [\\w] + [(] + [\\w]* + ([,]+([\\s])*[\\w]+)* + [)]) {2,} + [;]")) {
+			splitMessageChain(s,0); 
+			// {0,} equivale a *
+		}/* else if (s!=null && s.matches("[\\w]+ ([\\.] + [\\w] + [(] + [\\w]* + ([,]+([\\s])*[\\w]+)* + [)]) {2,}[;]")) {
 			System.out.println("\nÉ Message Chain para "+s+"\n");
-			splitMessageChain(s);
-		} else {
+			splitMessageChain(s, 1); 
+		} else if (s!=null && s.matches("[[Tt]his]? [\\w]+ ( [\\.]+ [\\w]+ [(]+ [\\w]*+ [)]) {2,} [;]")) {
+			// CASO: this.object.function1(x,y).function2(w,z);
+			System.out.println("\nÉ Message Chain para "+s+"\n");
+			splitMessageChain(s,0); 
+		}*/ else {
 			System.out.println("\nNão é Message Chain para "+s+"\n");	
 		}
 	}

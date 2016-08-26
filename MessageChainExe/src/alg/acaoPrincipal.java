@@ -23,7 +23,8 @@ public class acaoPrincipal {
 			"a.somadiferente().subdiferente().multdiferente().raizdiferente();", "enemies.get(i).isAlive();", 
 			"tower.getType().initialPrice();","tower.getType().initialPrice(f);", 
 			"tower.getType().initialPrice(PackageFragment);","tower.getType(i,j).initialPrice(f,g);", 
-			"tower.getType().initialPrice().love(f,g);"};
+			"tower.getType().initialPrice().love(f,g);",
+			"this.objeto.function().function2();", "This.objeto.function().function2();"};
 	
 	// String p/ testes que talvez o algoritmo n„o cubra
 	public static final String[] testeExcecoes = {"this.gameMap.getSector(x,y).occupant.add(newTower);",
@@ -82,8 +83,19 @@ public class acaoPrincipal {
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s,0); 
-			// {0,} equivale a *
+		} else if (s.matches("([Tt]his){1}[\\w]+([\\.]{1}[\\w]+[(][\\w]*+[)]){2,}[;]")) {
+			System.out.println("\n… Message Chain para "+s+"\n");
+			splitMessageChain(s,1);
+			/*
+			 * EXPLICA«√O REGEX:
+			 * 
+			 * CASO 1: this.objeto.function()...
+			 * CASO 2: This.objeto.function()...
+			 * 
+			 * 
+			 */
 		}/* else if (s!=null && s.matches("[\\w]+ ([\\.] + [\\w] + [(] + [\\w]* + ([,]+([\\s])*[\\w]+)* + [)]) {2,}[;]")) {
+		}
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s, 1); 
 		} else if (s!=null && s.matches("[[Tt]his]? [\\w]+ ( [\\.]+ [\\w]+ [(]+ [\\w]*+ [)]) {2,} [;]")) {

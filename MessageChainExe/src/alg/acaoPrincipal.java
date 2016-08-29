@@ -40,6 +40,7 @@ public class acaoPrincipal {
 			"this.objeto.function(param1).function2();", "This.objeto.function().function2(param2);",
 			"tower.getType(i,j).initialPrice(f,g);", "tower.getType().initialPrice().exe(f,g);",
 			"objeto.function(param1,param2,param3).function2(param4,param5,param6);",
+			"This.objeto.function(a,b,c).function2(d);","this.objeto.function(param1).function2(param2,param3);",
 			"objeto.metodo1(param1.class).metodo2(param2.class);",
 			"objeto.metodo1(param1,param2.class).metodo2(param3.class);", 
 			"objeto.metodo1(param1,param2.class,param3).metodo2(param4).metodo3(metodo5).metodo4(param6.class);",
@@ -132,7 +133,7 @@ public class acaoPrincipal {
 			 */
 			System.out.println("\nÉ Message Chain para "+s+"\n");
 			splitMessageChain(s,0); 
-		} else if (s!=null && s.matches("([tT]his)[\\.][\\w]+([\\.][\\w]+[(][\\w]*[)]){2,}[;]")) {
+		} else if (s!=null && s.matches("([tT]his)[\\.][\\w]+([\\.][\\w]+[(][\\w]*([,][\\w]+)*[)]){2,}[;]")) {
 			/*
 			 * EXPLICAÇÃO REGEX:
 			 * 
@@ -156,6 +157,12 @@ public class acaoPrincipal {
 			 * [(] -> necessário conter "(" uma vez
 			 * 
 			 * [\\w]* -> qlqr combinação de caracteres numéricos e/ou literais, 0 ou infinitas vezes
+			 * 
+			 * (G1)...(G2 (G3)* G2) -> grupo 3 que deve ser repetido 0 ou infinitas vezes
+			 * 
+			 * [,] -> necessário conter o caractere "," uma vez
+			 * 
+			 * [\\w]+ -> qlqr combinação de caracteres numéricos e/ou literais, repetindo  1 ou infinitas vezes 
 			 *  
 			 * [)] -> necessário conter ")" uma vez
 			 * 
@@ -171,7 +178,39 @@ public class acaoPrincipal {
 			 * CASO 1: objeto.function1().function2(param2.class,param3)...functionN(paramN1,paramN2.class,paramN3);
 			 * CASO 2: objeto.function1(param1.class, param2, param3.class).function2(param2,param3)...functionN(paramN1,paramN2.class,paramN3);
 			 * 
+			 * [\\w]+ -> qlqr combinação de caracteres numéricos e/ou literais, repetindo  1 ou infinitas vezes
 			 * 
+			 * ... (G1){2,} -> grupo 1 que deve ser repetido 2 ou mais vezes
+			 * 
+			 * [\\.] -> necessário conter "." uma vez
+			 * 
+			 * [\\w]+ -> qlqr combinação de caracteres numéricos e/ou literais, repetindo  1 ou infinitas vezes
+			 * 
+			 * [(] -> necessário conter "(" uma vez
+			 * 
+			 * (G1 (G2)*) -> grupo 2 que deve ser repetido 0 ou infinitas vezes
+			 * 
+			 * [\\w]+ -> qlqr combinação de caracteres numéricos e/ou literais, repetindo  1 ou infinitas vezes
+			 * 
+			 * (G1 (G2 (G3)*)) -> grupo 3 que deve ser repetido 0 ou infinitas vezes
+			 * 
+			 * [\\.] -> necessário conter "." uma vez
+			 * 
+			 * (class) -> necessário conter "class" uma vez
+			 * 
+			 * (G1 (G2 (G3) (G4)*)) -> grupo 4 que deve ser repetido 0 ou infinitas vezes
+			 * 
+			 * [,] -> necessário conter o caractere "," uma vez
+			 * 
+			 * [\\w]+ -> qlqr combinação de caracteres numéricos e/ou literais, repetindo  1 ou infinitas vezes
+			 * 
+			 * (G1 (G2 (G3) (G4 (G5)))) -> grupo 5
+			 * 
+			 * [\\.] -> necessário conter "." uma vez
+			 * 
+			 * (class) -> necessário conter "class" uma vez 
+			 * 
+			 * [;] -> necessário o caracter ";" no final para ser aceito
 			 * 
 			 */
 			System.out.println("\nÉ Message Chain para "+s+"\n");

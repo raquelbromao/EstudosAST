@@ -97,7 +97,7 @@ public class acaoPrincipal {
 	}
 	
 	public static void verificaMessageChain (String s) {		
-		if (s!=null && s.matches("[\\w]+([\\.]{1}[\\w]+[(][\\w]*[)]){2,}[;]")) {
+		if (s!=null && s.matches("[\\w]+([\\.]{1}[\\w]+[(][\\w]*([,][\\w]+)*[)]){2,}[;]")) {
 			/*
 			 * EXPLICA«√O REGEX:
 			 * 
@@ -105,22 +105,29 @@ public class acaoPrincipal {
 			 * CASO 2: objeto.function1(param1).function2()...functionN();
 			 * CASO 3: objeto.function1().function2(param2)...functionN();
 			 * CASO 4: objeto.function1(param1).function2(param2)...functionN(paramN);
+			 * CASO 5: CASO 1: objeto.function1().function2(param2,param3)...functionN(paramN1,paramN2,paramN3);
 			 * 
 			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
 			 * 
-			 * ... (G){2,} -> grupo que deve ser repetido 2 ou mais vezes
-			 * 
-			 * [\\.]{1} -> necess·rio conter "." uma vez
+			 * ... (G1){2,} -> grupo 1 que deve ser repetido 2 ou mais vezes
+			 *  
+			 * [\\.] -> necess·rio conter "." uma vez
 			 * 
 			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
 			 * 
 			 * [(] -> necess·rio conter "(" uma vez
 			 * 
 			 * [\\w]* -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, 0 ou infinitas vezes
+			 *  
+			 * (G1 (G2)* G1) -> grupo 2 que deve ser repetido 0 ou infinitas vezes
+			 * 
+			 * [,] -> necess·rio conter o caractere "," uma vez
+			 * 
+			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
 			 * 
 			 * [)] -> necess·rio conter ")" uma vez
 			 * 
-			 * [;] -> necess·rio o caracter ";" no final para ser aceito
+			 * [;] -> necess·rio o caractere ";" no final para ser aceito
 			 * 
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
@@ -157,37 +164,6 @@ public class acaoPrincipal {
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s,1);
-		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(][\\w]*([,][\\w]+)*[)]){2,}[;]")) {
-			/*
-			 * EXPLICA«√O REGEX:
-			 * 
-			 * CASO 1: objeto.function1().function2(param2,param3)...functionN(paramN1,paramN2,paramN3);
-			 * 
-			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
-			 * 
-			 * ... (G1){2,} -> grupo 1 que deve ser repetido 2 ou mais vezes
-			 *  
-			 * [\\.] -> necess·rio conter "." uma vez
-			 * 
-			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
-			 * 
-			 * [(] -> necess·rio conter "(" uma vez
-			 * 
-			 * [\\w]* -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, 0 ou infinitas vezes
-			 *  
-			 * (G1 (G2)* G1) -> grupo 2 que deve ser repetido 0 ou infinitas vezes
-			 * 
-			 * [,] -> necess·rio conter o caractere "," uma vez
-			 * 
-			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
-			 * 
-			 * [)] -> necess·rio conter ")" uma vez
-			 * 
-			 * [;] -> necess·rio o caractere ";" no final para ser aceito
-			 * 
-			 */
-			System.out.println("\n… Message Chain para "+s+"\n");
-			splitMessageChain(s,0);
 		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(]([\\w]+([\\.](class))*([,][\\w]+([\\.](class))*)*)*[)]){2,}[;]")) {
 			/*
 			 * EXPLICA«√O REGEX:

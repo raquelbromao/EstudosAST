@@ -30,6 +30,7 @@ public class acaoPrincipal {
 			"objeto.function().function2().function3().function4();", 
 			"objeto.function().function2().function3().function4().function5();",
 			"a.somadiferente().subdiferente().multdiferente().raizdiferente();", "enemies.get(i).isAlive();", 
+			"objeto.function(param1, param2, param3).function2(param4 , param5 , param6);",
 			"tower.getType().initialPrice();","tower.getType().initialPrice(f);", 
 			"tower.getType().initialPrice(PackageFragment);",
 			"this.objeto.function().function2().function3().function4().function5();",
@@ -48,15 +49,12 @@ public class acaoPrincipal {
 			"objeto.metodo1(param1.class, param2.class).metodo2(param3.class).metodo3(a, b, c);",
 			"objeto.metodo1().metodo2(param1.class).metodo3(a,b,c);",
 			"type.getTowerType().getConstructor(ArrayList.class,Map.class,Integer.class,Integer.class);",
-			"type.getEnemyType().getConstructor(Map.class, Path.class);",
-			"objeto.function(param1, param2, param3).function2(param4 , param5 , param6);",
-			"object.function();"};
+			"type.getEnemyType().getConstructor(Map.class, Path.class);"};
 	
 	// String p/ testes que talvez o algoritmo não cubra
 	public static final String[] testeExcecoes = {
 			"this.gameMap.getSector(x,y).occupant.add(newTower);", 
 			"BasicEnemy.class.getConstructor(Map.class, Path.class);", 
-			"type.getEnemyType().getConstructor(Map.class, Path.class);", 
 			"mainMenuScene.getStylesheets().addAll(this.getClass().getResource('style.css').toExternalForm());"};
 	
 	public static void splitMessageChain (String s, int j) {

@@ -67,20 +67,20 @@ public class acaoPrincipal {
 			// Quebra a vari·vel quando acha "." e armazena o resto numa posiÁ„o do array aux
 			// a().b() -> "." È descartado e "a()" fica em aux[0] e "b()" em aux[1]
 			aux = s.split(Pattern.quote("."));		
-			System.out.println("Objeto: " + aux[0]);		
-			for (int i = 1; i < aux.length; i++) {
-			System.out.println("MÈtodo[" + i + "]: " + aux[i]);
-			}				
-		} else if (j == 1) {	
-			// Quebra a vari·vel quando acha "." e armazena o resto numa posiÁ„o do array aux
-			// a().b() -> "." È descartado e "a()" fica em aux[0] e "b()" em aux[1]
-			aux = s.split(Pattern.quote("."));		
-			System.out.println("This -> " + aux[0]);	
-			System.out.println("Objeto: " + aux[1]);	
-			for (int i = 2; i < aux.length; i++) {
-				System.out.println("MÈtodo[" + (i - 1) + "]: " + aux[i]);
-			}
-		} else if (j == 2) {
+			
+			if (aux[0].equals("this") || aux[0].equals("This")) {
+				System.out.println("This -> " + aux[0]);	
+				System.out.println("Objeto: " + aux[1]);	
+				for (int i = 2; i < aux.length; i++) {
+					System.out.println("MÈtodo[" + (i - 1) + "]: " + aux[i]);
+				}
+			} else {
+				System.out.println("Objeto: " + aux[0]);		
+				for (int i = 1; i < aux.length; i++) {
+				System.out.println("MÈtodo[" + i + "]: " + aux[i]);		
+				}
+			}		
+		} else if (j == 1) {
 			// Quebra a vari·vel quando acha um "." que N√O SEJA seguido de "class" e
 			// armazena o resto numa posiÁ„o do array aux
 			// a().b() -> "." È descartado e "a()" fica em aux[0] e "b()" em aux[1]
@@ -163,7 +163,7 @@ public class acaoPrincipal {
 			 * 
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
-			splitMessageChain(s,1);
+			splitMessageChain(s,0);
 		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(]([\\w]+([\\.](class))*([,][\\w]+([\\.](class))*)*)*[)]){2,}[;]")) {
 			/*
 			 * EXPLICA«√O REGEX:
@@ -175,7 +175,7 @@ public class acaoPrincipal {
 			 * 
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
-			splitMessageChain(s,2);
+			splitMessageChain(s,1);
 		} else if (s.isEmpty()) { 
 			// Retorna true (0) qnd for vazia false (1) qnd for diferente de nula
 			System.out.println("\nString vazia!\n");

@@ -35,37 +35,61 @@ public class acaoPrincipal {
 			"This.objeto.function().function2().function3().function4();",
 			"This.objeto.function().function2().function3();","This.objeto.function().function2();",
 			"this.objeto.function(param1).function2();", "This.objeto.function().function2(param2);",
-			"tower.getType(i,j).initialPrice(f,g);", "tower.getType().initialPrice().love(f,g);",
-			"objeto.function(param1,param2,param3).function2(param4,param5,param6);"};
+			"tower.getType(i,j).initialPrice(f,g);", "tower.getType().initialPrice().exe(f,g);",
+			"objeto.function(param1,param2,param3).function2(param4,param5,param6);",
+			"objeto.metodo1(param1.class).metodo2(param2.class);", 
+			"objeto.metodo1(param1.class, param2.class).metodo2(param3.class).metodo3(a,b,c);",
+			"objeto.metodo1(param1,param2.class).metodo2(param3.class);", 
+			"objeto.metodo1(param1,param2.class,param3).metodo2(param4).metodo3(metodo5).metodo4(param6.class);",
+			"type.getEnemyType().getConstructor(Map.class, Path.class);",
+			"object.function();"};
 	
 	// String p/ testes que talvez o algoritmo n„o cubra
-	public static final String[] testeExcecoes = {"this.gameMap.getSector(x,y).occupant.add(newTower);",
+	public static final String[] testeExcecoes = {
+			"this.gameMap.getSector(x,y).occupant.add(newTower);",
 			"type.getTowerType().getConstructor(ArrayList.class, Map.class, Integer.class, Integer.class);", 
 			"BasicEnemy.class.getConstructor(Map.class, Path.class);", 
 			"type.getEnemyType().getConstructor(Map.class, Path.class);", 
 			"mainMenuScene.getStylesheets().addAll(this.getClass().getResource('style.css').toExternalForm());"};
 	
 	public static void splitMessageChain (String s, int j) {
-		// retira o ";" do final da string, substituindo por espaÁo em branco	
-		s = s.replace(";", " ");
+		String[] aux = null;
 		
-		// Quebra a vari·vel quando acha "." e armazena o resto numa posiÁ„o do array aux
-		// a().b() -> "." È descartado e "a()" fica em aux[0] e "b()" em aux[1]
-		String[] aux = s.split(Pattern.quote("."));		
+		// retira o ";" do final da string, substituindo por espaÁo em branco	
+		s = s.replace(";", " ");	
 
 		// Imprime a vari·vel aux na tela, separando os componentes do message chain analisado
 		if (j == 0) {
+			// Quebra a vari·vel quando acha "." e armazena o resto numa posiÁ„o do array aux
+			// a().b() -> "." È descartado e "a()" fica em aux[0] e "b()" em aux[1]
+			aux = s.split(Pattern.quote("."));		
 			System.out.println("Objeto: " + aux[0]);		
 			for (int i = 1; i < aux.length; i++) {
 			System.out.println("MÈtodo[" + i + "]: " + aux[i]);
 			}				
 		} else if (j == 1) {	
+			// Quebra a vari·vel quando acha "." e armazena o resto numa posiÁ„o do array aux
+			// a().b() -> "." È descartado e "a()" fica em aux[0] e "b()" em aux[1]
+			aux = s.split(Pattern.quote("."));		
 			System.out.println("This -> " + aux[0]);	
 			System.out.println("Objeto: " + aux[1]);	
 			for (int i = 2; i < aux.length; i++) {
 				System.out.println("MÈtodo[" + (i - 1) + "]: " + aux[i]);
 			}
-		} 
+		} else if (j == 2) {
+			// Quebra a vari·vel quando acha um "." que N√O SEJA seguido de "class" e
+			// armazena o resto numa posiÁ„o do array aux
+			// a().b() -> "." È descartado e "a()" fica em aux[0] e "b()" em aux[1]
+			// BUG: est· cortando "m" junto com ".", ou seja, cortando ".m"
+			aux = s.split("[\\.][^class]"); 
+			System.out.println("Objeto: " + aux[0]);	
+			for (int i = 1; i < aux.length; i++) {
+				System.out.println("MÈtodo[" + i + "]: " + aux[i]);
+			}
+		}
+		
+		// reinicializa a vari·vel aux liberando a memÛria
+		aux = null;
 	}
 	
 	public static void verificaMessageChain (String s) {		
@@ -80,7 +104,7 @@ public class acaoPrincipal {
 			 * 
 			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
 			 * 
-			 * (...){2,} -> grupo que deve ser repetido 2 ou mais vezes
+			 * ... (G){2,} -> grupo que deve ser repetido 2 ou mais vezes
 			 * 
 			 * [\\.]{1} -> necess·rio conter "." uma vez
 			 * 
@@ -104,7 +128,7 @@ public class acaoPrincipal {
 			 * CASO 1: [tT]his.objeto.function1().function2()...functionN();
 			 * CASO 2: [tT]his.function1().function2()...functionN();
 			 * 
-			 * (...) -> grupo 1
+			 * (G1)... -> grupo 1
 			 * 
 			 * [Tt]his -> This ou this uma ˙nica vez
 			 * 
@@ -112,7 +136,7 @@ public class acaoPrincipal {
 			 * 
 			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
 			 * 
-			 * (...){2,} -> grupo 2 que deve ser repetido 2 ou mais vezes
+			 * (G1) ... (G2){2,} -> grupo 2 que deve ser repetido 2 ou mais vezes
 			 * 
 			 * [\\.] -> necess·rio conter "." uma vez
 			 * 
@@ -133,18 +157,50 @@ public class acaoPrincipal {
 			/*
 			 * EXPLICA«√O REGEX:
 			 * 
-			 * CASO 1:
-			 * CASO 2:
+			 * CASO 1: objeto.function1().function2(param2,param3)...functionN(paramN1,paramN2,paramN3);
+			 * 
+			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
+			 * 
+			 * ... (G1){2,} -> grupo 1 que deve ser repetido 2 ou mais vezes
+			 *  
+			 * [\\.] -> necess·rio conter "." uma vez
+			 * 
+			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
+			 * 
+			 * [(] -> necess·rio conter "(" uma vez
+			 * 
+			 * [\\w]* -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, 0 ou infinitas vezes
+			 *  
+			 * (G1 (G2)* G1) -> grupo 2 que deve ser repetido 0 ou infinitas vezes
+			 * 
+			 * [,] -> necess·rio conter o caractere "," uma vez
+			 * 
+			 * [\\w]+ -> qlqr combinaÁ„o de caracteres numÈricos e/ou literais, repetindo  1 ou infinitas vezes
+			 * 
+			 * [)] -> necess·rio conter ")" uma vez
+			 * 
+			 * [;] -> necess·rio o caractere ";" no final para ser aceito
+			 * 
+			 */
+			System.out.println("\n… Message Chain para "+s+"\n");
+			splitMessageChain(s,0);
+		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(][\\w]+([\\.](class))*([,][\\w]+([\\.](class))*)*[)]){2,}[;]")) {
+			/*
+			 * EXPLICA«√O REGEX:
+			 * 
+			 * CASO 1: objeto.function1().function2(param2.class,param3)...functionN(paramN1,paramN2.class,paramN3);
+			 * CASO 2: objeto.function1(param1.class, param2, param3.class).function2(param2,param3)...functionN(paramN1,paramN2.class,paramN3);
 			 * 
 			 * 
 			 * 
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
-			splitMessageChain(s,0);
-		} else if (s.isEmpty()) { // Retorna true (0) qnd for vazia false (1) qnd for diferente de nula
+			splitMessageChain(s,2);
+		} else if (s.isEmpty()) { 
+			// Retorna true (0) qnd for vazia false (1) qnd for diferente de nula
 			System.out.println("\nString vazia!\n");
 		} else {
-			System.out.println("\nN„o È Message Chain para "+s+"\n");	
+			System.out.println("\nN√O … MESSAGE CHAIN PARA "+s+"\n");	
 		}
 	}
 	

@@ -47,13 +47,14 @@ public class acaoPrincipal {
 			"objeto.metodo1(param1,param2.class,param3).metodo2(param4).metodo3(metodo5).metodo4(param6.class);",
 			"objeto.metodo1(param1.class,param2.class).metodo2(param3.class).metodo3(a,b,c);",
 			"objeto.metodo1().metodo2(param1.class).metodo3(a,b,c);",
+			"type.getTowerType().getConstructor(ArrayList.class,Map.class,Integer.class,Integer.class);",
 			"type.getEnemyType().getConstructor(Map.class, Path.class);",
+			"objeto.function(param1, param2, param3).function2(param4 , param5 , param6);",
 			"object.function();"};
 	
 	// String p/ testes que talvez o algoritmo n„o cubra
 	public static final String[] testeExcecoes = {
-			"this.gameMap.getSector(x,y).occupant.add(newTower);",
-			"type.getTowerType().getConstructor(ArrayList.class, Map.class, Integer.class, Integer.class);", 
+			"this.gameMap.getSector(x,y).occupant.add(newTower);", 
 			"BasicEnemy.class.getConstructor(Map.class, Path.class);", 
 			"type.getEnemyType().getConstructor(Map.class, Path.class);", 
 			"mainMenuScene.getStylesheets().addAll(this.getClass().getResource('style.css').toExternalForm());"};
@@ -99,7 +100,7 @@ public class acaoPrincipal {
 	}
 	
 	public static void verificaMessageChain (String s) {		
-		if (s!=null && s.matches("[\\w]+([\\.]{1}[\\w]+[(][\\w]*([,][\\w]+)*[)]){2,}[;]")) {
+		if (s!=null && s.matches("[\\w]+([\\.]{1}[\\w]+[(][\\w]*([\\s]*[,][\\s]*[\\w]+)*[)]){2,}[;]")) {
 			/*
 			 * EXPLICA«√O REGEX:
 			 * 
@@ -134,7 +135,7 @@ public class acaoPrincipal {
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s,0); 
-		} else if (s!=null && s.matches("([tT]his)[\\.][\\w]+([\\.][\\w]+[(][\\w]*([,][\\w]+)*[)]){2,}[;]")) {
+		} else if (s!=null && s.matches("([tT]his)[\\.][\\w]+([\\.][\\w]+[(][\\w]*([\\s]*[,][\\s]*[\\w]+)*[)]){2,}[;]")) {
 			/*
 			 * EXPLICA«√O REGEX:
 			 * 
@@ -172,7 +173,7 @@ public class acaoPrincipal {
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s,0);
-		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(]([\\w]+([\\.](class))*([,][\\w]+([\\.](class))*)*)*[)]){2,}[;]")) {
+		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(]([\\w]+([\\.](class))*([\\s]*[,][\\s]*[\\w]+([\\.](class))*)*)*[)]){2,}[;]")) {
 			/*
 			 * EXPLICA«√O REGEX:
 			 * 

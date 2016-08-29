@@ -45,7 +45,7 @@ public class acaoPrincipal {
 			"objeto.metodo1(param1.class).metodo2(param2.class);",
 			"objeto.metodo1(param1,param2.class).metodo2(param3.class);", 
 			"objeto.metodo1(param1,param2.class,param3).metodo2(param4).metodo3(metodo5).metodo4(param6.class);",
-			"objeto.metodo1(param1.class,param2.class).metodo2(param3.class).metodo3(a,b,c);",
+			"objeto.metodo1(param1.class, param2.class).metodo2(param3.class).metodo3(a, b, c);",
 			"objeto.metodo1().metodo2(param1.class).metodo3(a,b,c);",
 			"type.getTowerType().getConstructor(ArrayList.class,Map.class,Integer.class,Integer.class);",
 			"type.getEnemyType().getConstructor(Map.class, Path.class);",
@@ -124,7 +124,11 @@ public class acaoPrincipal {
 			 *  
 			 * (G1 (G2)* G1) -> grupo 2 que deve ser repetido 0 ou infinitas vezes
 			 * 
+			 * [\\s]* -> necessário conter espaço em branco 0 ou infinitas vezes
+			 * 
 			 * [,] -> necessário conter o caractere "," uma vez
+			 * 
+			 * [\\s]* -> necessário conter espaço em branco 0 ou infinitas vezes
 			 * 
 			 * [\\w]+ -> qlqr combinação de caracteres numéricos e/ou literais, repetindo  1 ou infinitas vezes
 			 * 
@@ -162,7 +166,11 @@ public class acaoPrincipal {
 			 * 
 			 * (G1)...(G2 (G3)* G2) -> grupo 3 que deve ser repetido 0 ou infinitas vezes
 			 * 
+			 * [\\s]* -> necessário conter espaço em branco 0 ou infinitas vezes
+			 * 
 			 * [,] -> necessário conter o caractere "," uma vez
+			 * 
+			 * [\\s]* -> necessário conter espaço em branco 0 ou infinitas vezes
 			 * 
 			 * [\\w]+ -> qlqr combinação de caracteres numéricos e/ou literais, repetindo  1 ou infinitas vezes 
 			 *  
@@ -202,7 +210,11 @@ public class acaoPrincipal {
 			 * 
 			 * (G1 (G2 (G3) (G4)*)) -> grupo 4 que deve ser repetido 0 ou infinitas vezes
 			 * 
+			 * [\\s]* -> necessário conter espaço em branco 0 ou infinitas vezes
+			 * 
 			 * [,] -> necessário conter o caractere "," uma vez
+			 * 
+			 * [\\s]* -> necessário conter espaço em branco 0 ou infinitas vezes
 			 * 
 			 * [\\w]+ -> qlqr combinação de caracteres numéricos e/ou literais, repetindo  1 ou infinitas vezes
 			 * 

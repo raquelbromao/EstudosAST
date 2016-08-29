@@ -21,7 +21,8 @@ public class acaoPrincipal {
 			"objeto.function(param1,param2,param3));", "objeto.metodo1(param1.class);",
 			"objeto.metodo1(param1.class).metodo2((param2.class);",
 			"objeto.metodo1((param1.class)).metodo2(param2.class);",
-			"objeto.metodo1(param1.class).metodo2(param2.class));",""};
+			"objeto.metodo1(param1.class).metodo2(param2.class));",
+			"objeto.metodo1(param1.clas).metodo2(param2.clas));",""};
 	
 	// String p/ testes que o algoritmo DEVE cobrir
 	public static final String[] testeValido = {"objeto.function().function2();",

@@ -18,7 +18,10 @@ public class acaoPrincipal {
 			"This.objeto.function(().function2();", "This.objeto.function()).function2();",
 			"objeto.function(param1,param2,param3);", "objeto.function(param1,param2,param3)",
 			"objeto.function((param1,param2,param3));", "objeto.function((param1,param2,param3);",
-			"objeto.function(param1,param2,param3));", ""};
+			"objeto.function(param1,param2,param3));", "objeto.metodo1(param1.class);",
+			"objeto.metodo1(param1.class).metodo2((param2.class);",
+			"objeto.metodo1((param1.class)).metodo2(param2.class);",
+			"objeto.metodo1(param1.class).metodo2(param2.class));",""};
 	
 	// String p/ testes que o algoritmo DEVE cobrir
 	public static final String[] testeValido = {"objeto.function().function2();",
@@ -37,10 +40,11 @@ public class acaoPrincipal {
 			"this.objeto.function(param1).function2();", "This.objeto.function().function2(param2);",
 			"tower.getType(i,j).initialPrice(f,g);", "tower.getType().initialPrice().exe(f,g);",
 			"objeto.function(param1,param2,param3).function2(param4,param5,param6);",
-			"objeto.metodo1(param1.class).metodo2(param2.class);", 
-			"objeto.metodo1(param1.class, param2.class).metodo2(param3.class).metodo3(a,b,c);",
+			"objeto.metodo1(param1.class).metodo2(param2.class);",
 			"objeto.metodo1(param1,param2.class).metodo2(param3.class);", 
 			"objeto.metodo1(param1,param2.class,param3).metodo2(param4).metodo3(metodo5).metodo4(param6.class);",
+			"objeto.metodo1(param1.class,param2.class).metodo2(param3.class).metodo3(a,b,c);",
+			"objeto.metodo1().metodo2(param1.class).metodo3(a,b,c);",
 			"type.getEnemyType().getConstructor(Map.class, Path.class);",
 			"object.function();"};
 	
@@ -184,7 +188,7 @@ public class acaoPrincipal {
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");
 			splitMessageChain(s,0);
-		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(][\\w]+([\\.](class))*([,][\\w]+([\\.](class))*)*[)]){2,}[;]")) {
+		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(]([\\w]+([\\.](class))*([,][\\w]+([\\.](class))*)*)*[)]){2,}[;]")) {
 			/*
 			 * EXPLICA«√O REGEX:
 			 * 

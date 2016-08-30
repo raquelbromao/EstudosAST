@@ -99,11 +99,11 @@ public class AcaoRecursivo {
 				verificaMessageChainRec(auxrec[i]);
 			}
 		} else if (j == 5) {
-			System.out.println("\tMétodo: " + s);
+			System.out.println("\tMétodo único: " + s);
 		}
 		
 		// reinicializa a variável aux liberando a memória
-		auxrec = null;
+		//auxrec = null;
 	}
 	
 	public static void splitMessageChain (String s, int j) {
@@ -146,7 +146,7 @@ public class AcaoRecursivo {
 		}
 		
 		// reinicializa a variável aux liberando a memória
-		aux = null;
+		//aux = null;
 	}
 	
 	public static void verificaMessageChainRec (String s) {		
@@ -185,12 +185,12 @@ public class AcaoRecursivo {
 			splitMessageChainRec(s,1);
 		} else if (s.isEmpty()) { 
 			// Retorna true (0) qnd for vazia false (1) qnd for diferente de nula
-			System.out.println("\n\tParâmetros vazia!\n");
+			System.out.println("\n\tParâmetros vazia!\n"); 
+		}  else if (s!=null && s.matches("[\\w]+[(][)][\\.][\\w]+[(][)]")) {
+			splitMessageChainRec(s,4);
 		} else if (s!=null && s.matches("[\\w]+[(][)]")) {
 			splitMessageChainRec(s,5);
-		} else {
-			System.out.println("\n\tNÃO É MESSAGE CHAIN PARA "+s+"\n");	
-		}
+		} 
 	}
 	
 	public static void verificaMessageChain (String s) {		
@@ -227,7 +227,10 @@ public class AcaoRecursivo {
 			*/	
 			System.out.println("\nÉ Message Chain para "+s+"\n");
 			splitMessageChain(s,1);
-		} else if (s.isEmpty()) { 
+		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(][.]*[)]){2,}[;]")) { 
+			System.out.println("\nÉ Message Chain para "+s+"\n");
+			splitMessageChain(s,0);
+		}	else if (s.isEmpty()) {
 			// Retorna true (0) qnd for vazia false (1) qnd for diferente de nula
 			System.out.println("\nString vazia!\n");
 		} else {

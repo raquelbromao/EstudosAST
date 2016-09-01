@@ -7,7 +7,8 @@ public class AcaoRecursivo {
 	private static final Pattern PATTERNCLASS = Pattern.compile(".*[\\w]+[\\.][class].*");
 	
 	// String p/ testes que o algoritmo DEVE cobrir
-	public static final String[] testeValido = {"objeto.function(function3().function4()).function2();",
+	public static final String[] testeValido = {"objeto.function1(function3().function4()).function2();",
+			"objeto.function(this.object.function1().function2()).function3();",
 			"objeto.function().function2().function3();",
 			"objeto.function().function2().function3().function4();", 
 			"objeto.function().function2().function3().function4().function5();",
@@ -35,7 +36,7 @@ public class AcaoRecursivo {
 	
 	// String p/ testes que talvez o algoritmo não cubra
 	public static final String[] testeExcecoes = {
-			"object.function1(hahajahsh6263).function2(jhshye88e9e9w);",
+			"object.function1(hahajahsh6263).function2(jhshy#@&e88e9e9w);",
 			"this.gameMap.getSector(x,y).occupant.add(newTower);", 
 			"BasicEnemy.class.getConstructor(Map.class, Path.class);", 
 			"mainMenuScene.getStylesheets().addAll(this.getClass().getResource('style.css').toExternalForm());"};
@@ -77,7 +78,7 @@ public class AcaoRecursivo {
 			// armazena o resto numa posição do array aux
 			// a().b() -> "." é descartado e "a()" fica em aux[0] e "b()" em aux[1]
 			// BUG: está cortando "m" junto com ".", ou seja, cortando ".m"
-			auxrec = s.split("[\\.][^class]"); 
+			auxrec = s.split("[\\.^class]"); 
 			System.out.println("\tObjeto: " + auxrec[0]);	
 			for (int i = 1; i < auxrec.length; i++) {
 				System.out.println("\tMétodo[" + i + "]: " + auxrec[i]);
@@ -175,6 +176,8 @@ public class AcaoRecursivo {
 			splitMessageChainRec(s,5);
 		} else if (s!=null && s.matches("[\\w]+[(][)][\\s]*")) {
 			splitMessageChainRec(s,5);
+		} else {
+			System.out.print("\tERROR404: Regex deste método não encontrado!\n");
 		}
 	}
 	
@@ -229,9 +232,7 @@ public class AcaoRecursivo {
 		}
 	}
 
-	public static void main(String[] args) {
-		//testaStrings(testeErro);		
-		//System.out.println("\n#####################################################\n");		
+	public static void main(String[] args) {	
 		testaStrings(testeValido);
 		System.out.println("\n#####################################################\n");	
 		testaStrings(testeExcecoes);

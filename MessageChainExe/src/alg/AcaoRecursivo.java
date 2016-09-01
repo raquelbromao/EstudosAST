@@ -1,28 +1,10 @@
 package alg;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AcaoRecursivo {
-	
-	// String p/ testes que o algoritmo NÃO deve cobrir
-	/*public static final String[] testeErro = {"objeto", ".objeto", "objeto.", "objeto;",
-			"objeto.function", "objeto.function;", ";objeto.function", "objeto.;function", "objeto;.function",
-			"objeto()", ".objeto()", "objeto.()", "objeto().",
-			"objeto().function", "objeto.()function","()objeto.function",
-			"objeto.function()","objeto.function().", 
-			"a.somadiferente().subdiferente().multdiferente().raizdiferente()",
-			"objeto.function().function2", "objeto.function().function2.", "objeto.function().function2.;",
-			"objeto..function().function2();","objeto.function(()).function2();",
-			"objeto.function()).function2();", "objeto.function(().function2();", 
-			"this.object.function();", "This.object.function();", "This.objeto.function(()).function2();",
-			"This.objeto.function(().function2();", "This.objeto.function()).function2();",
-			"objeto.function(param1,param2,param3);", "objeto.function(param1,param2,param3)",
-			"objeto.function((param1,param2,param3));", "objeto.function((param1,param2,param3);",
-			"objeto.function(param1,param2,param3));", "objeto.metodo1(param1.class);",
-			"objeto.metodo1(param1.class).metodo2((param2.class);",
-			"objeto.metodo1((param1.class)).metodo2(param2.class);",
-			"objeto.metodo1(param1.class).metodo2(param2.class));",
-			"objeto.metodo1(param1.clas).metodo2(param2.clas));",""};*/
+public class AcaoRecursivo {	
+	private static final Pattern PATTERNCLASS = Pattern.compile(".*[\\w]+[\\.][class].*");
 	
 	// String p/ testes que o algoritmo DEVE cobrir
 	public static final String[] testeValido = {"objeto.function(function3().function4()).function2();",
@@ -53,19 +35,25 @@ public class AcaoRecursivo {
 	
 	// String p/ testes que talvez o algoritmo não cubra
 	public static final String[] testeExcecoes = {
+			"object.function1(hahajahsh6263).function2(jhshye88e9e9w);",
 			"this.gameMap.getSector(x,y).occupant.add(newTower);", 
 			"BasicEnemy.class.getConstructor(Map.class, Path.class);", 
 			"mainMenuScene.getStylesheets().addAll(this.getClass().getResource('style.css').toExternalForm());"};
 	
+	public static void findDotClass(String t) {
+        Matcher matcher = PATTERNCLASS.matcher(t);
+        if(matcher.matches() && matcher.groupCount() == 1){
+            String dotClass = matcher.group(1);
+            System.out.println("Dot Class: " + dotClass);
+        } else {
+            System.out.println("Não encontrou dot Class.");
+        }
+    }
+	
 	public static void splitMessageChainRec (String s, int j) {
-		String[] auxrec = null;
+		String[] auxrec = null;		
 		
-
-		// Imprime a variável aux na tela, separando os componentes do message chain analisado
 		if (j == 0) {
-			// retira o ";" do final da string, substituindo por espaço em branco	
-			s = s.replace(";", " ");	
-			
 			// Quebra a variável quando acha "." e armazena o resto numa posição do array aux
 			// a().b() -> "." é descartado e "a()" fica em aux[0] e "b()" em aux[1]
 			auxrec = s.split(Pattern.quote("."));		
@@ -84,10 +72,7 @@ public class AcaoRecursivo {
 					verificaMessageChainRec(auxrec[i]);
 				}
 			}		
-		} else if (j == 1) {
-			// retira o ";" do final da string, substituindo por espaço em branco	
-			s = s.replace(";", " ");	
-			
+		} else if (j == 1) {			
 			// Quebra a variável quando acha um "." que NÃO SEJA seguido de "class" e
 			// armazena o resto numa posição do array aux
 			// a().b() -> "." é descartado e "a()" fica em aux[0] e "b()" em aux[1]
@@ -108,11 +93,8 @@ public class AcaoRecursivo {
 	
 	public static void splitMessageChain (String s, int j) {
 		String[] aux = null;
-		
-		// retira o ";" do final da string, substituindo por espaço em branco	
 		s = s.replace(";", " ");	
 
-		// Imprime a variável aux na tela, separando os componentes do message chain analisado
 		if (j == 0) {
 			// Quebra a variável quando acha "." e armazena o resto numa posição do array aux
 			// a().b() -> "." é descartado e "a()" fica em aux[0] e "b()" em aux[1]
@@ -137,11 +119,12 @@ public class AcaoRecursivo {
 			// armazena o resto numa posição do array aux
 			// a().b() -> "." é descartado e "a()" fica em aux[0] e "b()" em aux[1]
 			// BUG: está cortando "m" junto com ".", ou seja, cortando ".m"
+			findDotClass(s);
 			aux = s.split("[\\.][^class]"); 
 			System.out.println("Objeto: " + aux[0]);	
 			for (int i = 1; i < aux.length; i++) {
 				System.out.println("Método[" + i + "]: " + aux[i]);
-				verificaMessageChainRec(aux[i]);
+				//verificaMessageChainRec(aux[i]);
 			}
 		}
 		
@@ -150,7 +133,7 @@ public class AcaoRecursivo {
 	}
 	
 	public static void verificaMessageChainRec (String s) {		
-		if (s!=null && s.matches("[\\w]+([\\.]{1}[\\w]+[(][\\w]*([\\s]*[,][\\s]*[\\w]+)*[)]){2,}[;]")) {
+		if (s!=null && s.matches("[\\w]+([\\.]{1}[\\w]+[(][\\w]*([\\s]*[,][\\s]*[.]+)*[)]){2,}[\\s]*")) {
 			/*
 			 * EXPLICAÇÃO REGEX:
 			 * 
@@ -163,7 +146,7 @@ public class AcaoRecursivo {
 			 */
 			//System.out.println("\nÉ Message Chain para "+s+"\n");
 			splitMessageChainRec(s,0); 
-		} else if (s!=null && s.matches("([tT]his)[\\.][\\w]+([\\.][\\w]+[(][\\w]*([\\s]*[,][\\s]*[\\w]+)*[)]){2,}[;]")) {
+		} else if (s!=null && s.matches("([tT]his)[\\.][\\w]+([\\.][\\w]+[(][\\w]*([\\s]*[,][\\s]*[.]+)*[)]){2,}[\\s]*")) {
 			/*
 			 * EXPLICAÇÃO REGEX:
 			 * 
@@ -173,7 +156,7 @@ public class AcaoRecursivo {
 			 */
 			//System.out.println("\nÉ Message Chain para "+s+"\n");
 			splitMessageChainRec(s,0);
-		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(]([\\w]+([\\.](class))*([\\s]*[,][\\s]*[\\w]+([\\.](class))*)*)*[)]){2,}[;]")) {
+		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(]([\\w]+([\\.](class))*([\\s]*[,][\\s]*[.]+([\\.](class))*)*)*[)]){2,}[\\s]*")) {
 			/*
 			 * EXPLICAÇÃO REGEX:
 			 * 
@@ -186,11 +169,13 @@ public class AcaoRecursivo {
 		} else if (s.isEmpty()) { 
 			// Retorna true (0) qnd for vazia false (1) qnd for diferente de nula
 			System.out.println("\n\tParâmetros vazia!\n"); 
-		}  else if (s!=null && s.matches("[\\w]+[(][)][\\.][\\w]+[(][)]")) {
+		}  else if (s!=null && s.matches("[\\w]+[(][)]([\\.][\\w]+[(].*[)]){1,}[\\s]*")) {
 			splitMessageChainRec(s,4);
-		} else if (s!=null && s.matches("[\\w]+[(][)]")) {
+		} else if (s!=null && s.matches("[\\w]+[(][\\w]+([\\s]*[,][\\s]*[\\w]+)*[)][\\s]*")) {
 			splitMessageChainRec(s,5);
-		} 
+		} else if (s!=null && s.matches("[\\w]+[(][)][\\s]*")) {
+			splitMessageChainRec(s,5);
+		}
 	}
 	
 	public static void verificaMessageChain (String s) {		
@@ -227,11 +212,11 @@ public class AcaoRecursivo {
 			*/	
 			System.out.println("\nÉ Message Chain para "+s+"\n");
 			splitMessageChain(s,1);
-		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(][.]*[)]){2,}[;]")) { 
+		} else if (s!=null && s.matches("[\\w]+([\\.][\\w]+[(].*[)]){2,}[;]")) { 
 			System.out.println("\nÉ Message Chain para "+s+"\n");
 			splitMessageChain(s,0);
 		}	else if (s.isEmpty()) {
-			// Retorna true (0) qnd for vazia false (1) qnd for diferente de nula
+			// Retorna true (0) qnd for vazia e false (1) qnd for diferente de nula
 			System.out.println("\nString vazia!\n");
 		} else {
 			System.out.println("\nNÃO É MESSAGE CHAIN PARA "+s+"\n");	

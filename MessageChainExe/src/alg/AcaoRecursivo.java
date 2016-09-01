@@ -187,7 +187,7 @@ public class AcaoRecursivo {
 			 * CASO 2: objeto.function1(param1).function2()...functionN();
 			 * CASO 3: objeto.function1().function2(param2)...functionN();
 			 * CASO 4: objeto.function1(param1).function2(param2)...functionN(paramN);
-			 * CASO 5: CASO 1: objeto.function1().function2(param2,param3)...functionN(paramN1,paramN2,paramN3);
+			 * CASO 5: CASO 1: objeto.function1().function2(param2,param3)...functionN(paramN1, paramN2 ,paramN3);
 			 * 
 			 */
 			System.out.println("\n… Message Chain para "+s+"\n");

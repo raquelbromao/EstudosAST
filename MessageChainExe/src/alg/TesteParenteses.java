@@ -11,7 +11,7 @@ public class TesteParenteses {
 		System.out.println("Indíce da primeira ocorrência de '(': " + testeParenteses.indexOf("("));
 		System.out.println("Indíce da última ocorrência de ')': " + testeParenteses.lastIndexOf(")") + "\n");
 		
-		String[] split1 = testeParenteses.split(Pattern.quote(").")); 
+		String[] split1 = testeParenteses.split("[)][\\.]"); //Pattern.quote(").")
 		System.out.println("###### PRIMEIRO SPLIT ");
 		for (int w = 0; w < split1.length; w++) {
 			System.out.println("Componente["+ w +"]: " + split1[w]);
@@ -22,7 +22,7 @@ public class TesteParenteses {
 		
 		System.out.println("\n\n###### SEGUNDO SPLIT ");
 		for (int j = 0; j < split1.length; j++) {
-			split2 = split1[j].split(Pattern.quote("("));
+			split2 = split1[j].split("[(]"); //Pattern.quote("(")
 			System.out.println("## Componentes de split1["+ j +"]");
 			for (int k = 0; k < split2.length; k++) {
 				System.out.println("Componente["+ k +"]: " + split2[k]);

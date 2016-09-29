@@ -153,7 +153,7 @@ public class GetInfo extends AbstractHandler {
 	 * @param method
 	 */
 	private void analyseExpression(Expression exp) {
-		MethodInvocation methodinvoke = exp		
+		//MethodInvocation methodinvoke = exp		
 	}
 
 	/**

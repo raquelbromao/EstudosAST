@@ -19,9 +19,12 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
+import org.eclipse.jdt.core.dom.MethodInvocation;
 
 /**
  * 
@@ -136,11 +139,21 @@ public class GetInfo extends AbstractHandler {
 
 				// Converter o method.getParent() em string e avalia se é Message Chain
 				String t = null;
-				t = method.getExpression().toString();
-
-				verificaMessageChain(t);
+				t = method.getExpression().toString();	
+				System.out.println("Método " + t);
+				
+				//verificaMessageChain(t);
+				analyseExpression(method.getExpression());
 			}
 		}
+	}
+
+	/**
+	 * Analisa a expressão recebida e acha o método
+	 * @param method
+	 */
+	private void analyseExpression(Expression exp) {
+		MethodInvocation methodinvoke = exp		
 	}
 
 	/**

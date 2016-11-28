@@ -154,6 +154,8 @@ public class GetInfo extends AbstractHandler {
 	 */
 	private void analyseExpression(Expression exp) {
 		//MethodInvocation methodinvoke = exp		
+		ASTNode no = exp.getParent();
+		//no.
 	}
 
 	/**
